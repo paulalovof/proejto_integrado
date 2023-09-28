@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="ifpr.pgua.eic.agenda.controllers.Principal">
+   <children>
+      <HBox prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label text="Você ainda não está logado" />
+         </children>
+         <VBox.margin>
+            <Insets left="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="BOTTOM_CENTER" prefHeight="114.0" prefWidth="600.0" spacing="55.0">
+         <children>
+            <Label text="Usuário: " />
+            <TextField fx:id="tfUser" prefHeight="25.0" prefWidth="142.0" promptText="digite seu usuário" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" spacing="15.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="95.0" text="Tipo de Usuário: " />
+            <ComboBox fx:id="cbTipoUser" prefHeight="25.0" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="600.0" spacing="62.0">
+         <children>
+            <Label text="Senha: " />
+            <TextField fx:id="tfSenha" prefHeight="25.0" prefWidth="143.0" promptText="digite sua senha" />
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_CENTER" prefHeight="66.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#logar" text="Logar">
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Label onMouseClicked="#novaConta" text="Nova conta" />
+   </children>
+</VBox>
