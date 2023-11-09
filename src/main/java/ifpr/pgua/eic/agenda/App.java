@@ -1,7 +1,6 @@
 package ifpr.pgua.eic.agenda;
 
 import ifpr.pgua.eic.agenda.controllers.Principal;
-import ifpr.pgua.eic.agenda.model.daos.FabricaConexoes;
 import io.github.hugoperlin.navigatorfx.BaseAppNavigator;
 import io.github.hugoperlin.navigatorfx.ScreenRegistryFXML;
 
