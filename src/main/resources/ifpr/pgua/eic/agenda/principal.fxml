@@ -49,6 +49,14 @@ fx:controller="ifpr.pgua.eic.agenda.controllers.Principal">
             </Button>
          </children>
       </HBox>
-      <Label onMouseClicked="#novaConta" text="Nova conta" />
+      <HBox alignment="BOTTOM_CENTER" prefHeight="66.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#novaConta" text="Nova Conta">
+               <HBox.margin>
+                  <Insets bottom="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>
