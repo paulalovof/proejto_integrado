@@ -6,6 +6,7 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
+import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -31,6 +32,12 @@ public class PrincipalAluno {
     @FXML
     private ListView<Atividades> lstAtividadesProximas;
 
+    private RepositorioAnotacoes repositorio;
+    
+    public PrincipalAluno(RepositorioAnotacoes repositorio) {
+        this.repositorio = repositorio;
+    }
+
     //nao sei se aqui passa o idAluno ou o aluno inteiro...
     @FXML
     void cadastrarAnotacao(ActionEvent event){
@@ -38,7 +45,7 @@ public class PrincipalAluno {
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = data.getValue();
 
-        Resultado resultado = RepositorioAnotacoes.cadastrarAnotacao(nome, descricao, dataPicker);
+        Resultado resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker);
         
         Alert alert;
 

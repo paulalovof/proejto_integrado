@@ -6,6 +6,7 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
 import ifpr.pgua.eic.agenda.model.entities.Eventos;
+import ifpr.pgua.eic.agenda.model.repositories.RepositorioEventos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,6 +17,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class PrincipalCoordenador {
     
+    private RepositorioEventos repositorio;
+
     @FXML
     private TextField idCoordenador;
 
@@ -38,7 +41,7 @@ public class PrincipalCoordenador {
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = data.getValue();
 
-        Resultado resultado = RepositorioEventos.cadastrarEvento(nome, descricao, dataPicker);
+        Resultado resultado = repositorio.cadastrarEvento(nome, descricao, dataPicker);
         
         Alert alert;
 
