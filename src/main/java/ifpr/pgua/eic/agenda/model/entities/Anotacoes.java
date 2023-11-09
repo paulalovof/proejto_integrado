@@ -1,17 +1,36 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Anotacoes {
     
-    private int idAluno;
+    private Aluno aluno;
     private int idAnotacao;
     private String nome;
     private String descricao;
+    private LocalDate data;
 
-    public int getIdAluno() {
-        return idAluno;
+    public Anotacoes(Aluno aluno, String nome, String descricao,LocalDate data){
+        this.aluno = aluno;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
     }
-    public void setIdAluno(int idAluno) {
-        this.idAluno = idAluno;
+
+    public Anotacoes(int idAnotacao, Aluno aluno, String nome, String descricao, LocalDate data){
+        this.idAnotacao = idAnotacao;
+        this.aluno = aluno;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public int getIdAnotacao() {
@@ -35,5 +54,11 @@ public class Anotacoes {
         this.descricao = descricao;
     }
 
-    
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
 }

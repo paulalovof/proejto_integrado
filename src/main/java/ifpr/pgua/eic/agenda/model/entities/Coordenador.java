@@ -7,7 +7,7 @@ public class Coordenador {
     private String senha;
     private String numeroSiape;
 
-    public int getIdCoordenadorr() {
+    public int getIdCoordenador() {
         return idCoordenador;
     }
     public void setIdCoordenador (int idCoordenador) {

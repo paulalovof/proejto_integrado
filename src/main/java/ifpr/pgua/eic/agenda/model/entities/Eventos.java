@@ -1,20 +1,37 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Eventos {
     
-    private int idCoordenador;
+    private Coordenador coordenador;
     private int idEvento;
     private String nome;
     private String descricao;
-    private Date data;
+    private LocalDate data;
 
-    public int getIdCoordenador() {
-        return idCoordenador;
+    public Eventos(Coordenador coordenador, String nome, String descricao, LocalDate data){
+        this.coordenador = coordenador;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
     }
-    public void setIdCoordenador(int idCoordenador) {
-        this.idCoordenador = idCoordenador;
+
+    public Eventos(int idEvento, Coordenador coordenador, String nome, String descricao, LocalDate data){
+        this.idEvento = idEvento;
+        this.coordenador = coordenador;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.data = data;
+    }
+    
+
+    public Coordenador getCoordenador() {
+        return coordenador;
+    }
+    public void setCoordenador(Coordenador coordenador) {
+        this.coordenador = coordenador;
     }
 
     public int getIdEvento() {
@@ -38,10 +55,10 @@ public class Eventos {
         this.descricao = descricao;
     }
     
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }
