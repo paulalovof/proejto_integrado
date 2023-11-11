@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalAluno">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalAluno">
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="10.0">
          <children>
@@ -32,11 +31,23 @@ fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalAluno">
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" prefHeight="349.0" prefWidth="600.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="341.0" prefWidth="410.0">
+            <VBox prefHeight="348.0" prefWidth="421.0">
                <children>
-                  <Button mnemonicParsing="false" text="Visualizar Calendário" />
+                  <HBox alignment="CENTER" prefHeight="258.0" prefWidth="421.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Visualizar Calendário" />
+                     </children>
+                     <padding>
+                        <Insets top="50.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="213.0" prefWidth="421.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#cadastrarAnotacao" text="Nova Anotação Pessoal" />
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <HBox prefHeight="341.0" prefWidth="170.0">
                <children>

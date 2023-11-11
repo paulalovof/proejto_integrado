@@ -1,6 +1,6 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
-public class Aluno {
+public class Aluno{
 
     private int idAluno;
     private String nome;
@@ -8,7 +8,7 @@ public class Aluno {
     private String senha;
     private String numeroMatricula;
 
-      public int getIdAluno() {
+    public int getIdAluno() {
         return idAluno;
     }
     public void setIdAluno(int idAluno) {
@@ -21,10 +21,11 @@ public class Aluno {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public String getLogin() {
         return login;
     }
+
     public void setLogin(String login) {
         this.login = login;
     }
@@ -32,6 +33,7 @@ public class Aluno {
     public String getSenha() {
         return senha;
     }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }

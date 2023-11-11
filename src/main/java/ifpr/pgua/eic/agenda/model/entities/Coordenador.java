@@ -1,11 +1,13 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
-public class Coordenador {
+public class Coordenador{
+
     private int idCoordenador;
     private String nome;
     private String login;
     private String senha;
     private String numeroSiape;
+
 
     public int getIdCoordenador() {
         return idCoordenador;
@@ -20,10 +22,11 @@ public class Coordenador {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public String getLogin() {
         return login;
     }
+
     public void setLogin(String login) {
         this.login = login;
     }
@@ -31,6 +34,7 @@ public class Coordenador {
     public String getSenha() {
         return senha;
     }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }

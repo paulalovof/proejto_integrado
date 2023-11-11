@@ -32,30 +32,9 @@ public class PrincipalAluno {
     @FXML
     private ListView<Atividades> lstAtividadesProximas;
 
-    private RepositorioAnotacoes repositorio;
-    
-    public PrincipalAluno(RepositorioAnotacoes repositorio) {
-        this.repositorio = repositorio;
-    }
-
-    //nao sei se aqui passa o idAluno ou o aluno inteiro...
     @FXML
     void cadastrarAnotacao(ActionEvent event){
-        String nome = tfNome.getText();
-        String descricao = tfDescricao.getText();
-        LocalDate dataPicker = data.getValue();
-
-        Resultado resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker);
-        
-        Alert alert;
-
-        if(resultado.foiErro()){
-            alert = new Alert(AlertType.ERROR, resultado.getMsg());
-        }else{
-            alert = new Alert(AlertType.INFORMATION, resultado.getMsg());
-        }
-
-        alert.showAndWait();
+        App.pushScreen("CADASTRAANOTACAO");
     }
 
     @FXML

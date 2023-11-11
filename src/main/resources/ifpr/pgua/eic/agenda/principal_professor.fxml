@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalProfessor">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalProfessor">
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="10.0">
          <children>
@@ -29,9 +28,17 @@ fx:controller="ifpr.pgua.eic.agenda.controllers.PrincipalProfessor">
          </padding>
       </HBox>
       <Separator prefWidth="200.0" />
-      <HBox alignment="CENTER" prefHeight="344.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="185.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" text="Visualizar Calendário" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="TOP_CENTER" prefHeight="108.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cadastrarAtividade" text="Nova Atividade" />
          </children>
       </HBox>
    </children>

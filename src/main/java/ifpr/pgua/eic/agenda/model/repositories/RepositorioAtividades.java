@@ -4,9 +4,17 @@ import java.time.LocalDate;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.agenda.model.daos.AtividadesDAO;
+
 public class RepositorioAtividades {
 
-    public Resultado cadastrarAtividade(String nome, String descricao, LocalDate dataPicker) {
+    private AtividadesDAO dao;
+
+    public RepositorioAtividades(AtividadesDAO dao){
+        this.dao = dao;
+    }
+
+    public Resultado cadastrarAtividade(String nome, String descricao, LocalDate dataPicker, Boolean avaliada) {
         return null;
     }
 
