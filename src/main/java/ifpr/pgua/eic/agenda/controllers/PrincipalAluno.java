@@ -1,34 +1,17 @@
 package ifpr.pgua.eic.agenda.controllers;
 
-import java.time.LocalDate;
-
-import com.github.hugoperlin.results.Resultado;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import ifpr.pgua.eic.agenda.App;
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
-import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
-public class PrincipalAluno {
 
-    @FXML
-    private TextField idAluno;
-
-    @FXML
-    private TextField tfNome;
-
-    @FXML
-    private TextField tfDescricao;
-
-    @FXML
-    private DatePicker data;
-
+public class PrincipalAluno implements Initializable{
     @FXML
     private ListView<Atividades> lstAtividadesProximas;
 
@@ -40,5 +23,10 @@ public class PrincipalAluno {
     @FXML
     void sair(ActionEvent event) {
         App.popScreen();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        //inicializar a lista com atividades proximas 5 dias
     }
 }

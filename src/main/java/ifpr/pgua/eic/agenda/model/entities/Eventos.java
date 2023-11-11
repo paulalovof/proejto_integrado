@@ -1,6 +1,5 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Eventos {
