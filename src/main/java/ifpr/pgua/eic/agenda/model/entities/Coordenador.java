@@ -8,6 +8,21 @@ public class Coordenador{
     private String senha;
     private String numeroSiape;
 
+    public Coordenador(int idCoordenador, String nome, String login, String senha, String numeroSiape){
+        this.idCoordenador = idCoordenador;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.numeroSiape = numeroSiape;
+    }
+
+    public Coordenador(String nome, String login, String senha, String numeroSiape){
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.numeroSiape = numeroSiape;
+    }
+
 
     public int getIdCoordenador() {
         return idCoordenador;

@@ -54,26 +54,6 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
     }
 
     @Override
-    public Resultado buscarProfessorAtividade(int atividadeId) {
-        try (Connection con = fabrica.getConnection()) {
-
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_atividades WHERE idAtividade=?");
-
-            pstm.setInt(1, atividadeId);
-
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-
-            int professorId = rs.getInt("idUsuario");
-            return getById(professorId);
-
-
-        } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
-        }
-    }
-
-    @Override
     public Resultado listar() {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_atividades");

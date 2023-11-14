@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
+import ifpr.pgua.eic.agenda.model.repositories.RepositorioCoordenador;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioEventos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,10 +24,12 @@ public class CadastrarEvento {
     @FXML
     private TextField tfNome;
 
-     private RepositorioEventos repositorio;
+    private RepositorioEventos repositorio;
+    private RepositorioCoordenador repositorioCoordenador; 
     
-    public CadastrarEvento(RepositorioEventos repositorio) {
+    public CadastrarEvento(RepositorioEventos repositorio, RepositorioCoordenador repositorioCoordenador) {
         this.repositorio = repositorio;
+        this.repositorioCoordenador = repositorioCoordenador;
     }
 
     @FXML
@@ -34,8 +37,9 @@ public class CadastrarEvento {
         String nome = tfNome.getText();
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = dtPrazo.getValue();
+        //Coordenador coordenador = repositorioCoordenador.getLogado();
 
-        Resultado resultado = repositorio.cadastrarEvento(nome, descricao, dataPicker);
+        Resultado resultado = repositorio.cadastrarEvento(nome, descricao, dataPicker, null);
         
         Alert alert;
 

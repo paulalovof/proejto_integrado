@@ -12,8 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-
 public class Principal implements Initializable{
     @FXML
     private ComboBox<String> cbTipoUser;
@@ -58,11 +56,7 @@ public class Principal implements Initializable{
             //verificar se o login e senha existem no banco
             App.pushScreen("PRINCIPALCOORDENADOR");
         }
-    }
-
-    @FXML
-    void novaConta(MouseEvent event) {
-        //implementar futuramente, não é prioridade
+        App.pushScreen("PRINCIPAL");
     }
 
     

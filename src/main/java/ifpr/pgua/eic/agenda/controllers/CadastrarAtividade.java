@@ -6,6 +6,7 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAtividades;
+import ifpr.pgua.eic.agenda.model.repositories.RepositorioProfessor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,9 +29,11 @@ public class CadastrarAtividade {
     private CheckBox cbAvaliada;
 
     private RepositorioAtividades repositorio;
+    private RepositorioProfessor repositorioProfessor;
     
-    public CadastrarAtividade(RepositorioAtividades repositorio) {
+    public CadastrarAtividade(RepositorioAtividades repositorio, RepositorioProfessor repositorioProfessor) {
         this.repositorio = repositorio;
+        this.repositorioProfessor = repositorioProfessor;
     }
 
     @FXML
@@ -39,8 +42,10 @@ public class CadastrarAtividade {
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = dtPrazo.getValue();
         Boolean avaliada = cbAvaliada.isSelected();
+        //Professor professor = repositorioProfessot.getLogado();
+        //como pegar o usuario que esta logado?
 
-        Resultado resultado = repositorio.cadastrarAtividade(nome, descricao, dataPicker, avaliada);
+        Resultado resultado = repositorio.cadastrarAtividade(nome, descricao, dataPicker, avaliada, null);
         
         Alert alert;
 

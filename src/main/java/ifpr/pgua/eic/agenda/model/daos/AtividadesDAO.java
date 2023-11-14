@@ -5,7 +5,6 @@ import ifpr.pgua.eic.agenda.model.entities.Atividades;
 
 public interface AtividadesDAO {
     Resultado criar(Atividades atividade);
-    Resultado buscarProfessorAtividade(int professorId);
     Resultado listar();
     Resultado getById(int id);
     Resultado atualizar(int id, Atividades novo);

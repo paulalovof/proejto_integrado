@@ -51,25 +51,6 @@ public class JDBCEventosDAO implements EventosDAO{
         }
     }
 
-    @Override
-    public Resultado buscarCoordenadorEvento(int eventoId) {
-        try (Connection con = fabrica.getConnection()) {
-
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_eventos WHERE idEvento=?");
-
-            pstm.setInt(1, eventoId);
-
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-
-            int coordenadorId = rs.getInt("idUsuario");
-            return getById(coordenadorId);
-
-
-        } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
-        }
-    }
 
     @Override
     public Resultado listar() {

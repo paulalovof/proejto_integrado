@@ -110,27 +110,6 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
 
     }
 
-    @Override
-    public Resultado buscarAlunoAnotacao(int anotacaoId) {
-        
-        try (Connection con = fabrica.getConnection()) {
-
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_anotacoes WHERE idAnotacao=?");
-
-            pstm.setInt(1, anotacaoId);
-
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-
-            int alunoId = rs.getInt("idUsuario");
-
-            return getById(alunoId);
-
-
-        } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
-        }
-    }
 
     @Override
     public Resultado atualizar(int id, Anotacoes novo) {
