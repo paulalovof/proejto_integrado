@@ -21,6 +21,7 @@ import ifpr.pgua.eic.agenda.model.daos.JDBCEventosDAO;
 import ifpr.pgua.eic.agenda.model.daos.JDBCProfessorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAtividades;
@@ -34,7 +35,6 @@ import io.github.hugoperlin.navigatorfx.ScreenRegistryFXML;
  * JavaFX App
  */
 public class App extends BaseAppNavigator {
-    
     
     private AnotacoesDAO anotacoesDAO = new JDBCAnotacoesDAO(FabricaConexoes.getInstance());
     private AlunoDAO alunoDAO = new JDBCAlunoDAO(FabricaConexoes.getInstance());
@@ -51,6 +51,8 @@ public class App extends BaseAppNavigator {
     private CoordenadorDAO coordenadorDAO = new JDBCCoordenadorDAO(FabricaConexoes.getInstance());
     private RepositorioEventos repositorioEventos = new RepositorioEventos(eventosDAO, coordenadorDAO);
     private RepositorioCoordenador repositorioCoordenador = new RepositorioCoordenador(coordenadorDAO);
+
+    private ServicoLogin logado = new ServicoLogin();
 
     public static void main(String[] args) {
         launch();
@@ -69,10 +71,16 @@ public class App extends BaseAppNavigator {
         return "Agenda";
     }
 
+    public void setLogado(String login, String senha, String numero){
+        logado.setLogin(login);
+        logado.setSenha(senha);
+        logado.setNumero(numero);
+    }
+
     @Override
     public void registrarTelas() {
         registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal()));
-        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno()));
+        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno(logado)));
         registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador()));
         registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor()));
         registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno)));

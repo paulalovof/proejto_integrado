@@ -7,8 +7,6 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.AtividadesDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
-import ifpr.pgua.eic.agenda.model.entities.Aluno;
-import ifpr.pgua.eic.agenda.model.entities.Anotacoes;
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
 

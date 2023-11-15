@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
+import ifpr.pgua.eic.agenda.model.entities.Aluno;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
 import javafx.event.ActionEvent;
@@ -26,6 +28,7 @@ public class CadastrarAnotacao {
 
     private RepositorioAnotacoes repositorio;
     private RepositorioAluno repositorioAluno;
+    private ServicoLogin logado;
     
     public CadastrarAnotacao(RepositorioAnotacoes repositorio, RepositorioAluno repositorioAluno) {
         this.repositorio = repositorio;
@@ -37,9 +40,13 @@ public class CadastrarAnotacao {
         String nome = tfNome.getText();
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = dtPrazo.getValue();
-        //Aluno aluno = repositorioAluno.getLogado();
+        //Aluno aluno = repositorioAluno.getLogado(0);
         //aqui tem que dar um jeito de pegar o aluno logado
+        //String login = logado.getLogin();
+        //String senha = logado.getSenha();
+        //String numero = logado.getNumero();
 
+        //Aluno aluno = new Aluno(nome, login, senha, numero);
         Resultado resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker, null);
         
         Alert alert;

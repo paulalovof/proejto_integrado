@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import ifpr.pgua.eic.agenda.App;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,7 @@ public class Principal implements Initializable{
     @FXML
     private ComboBox<String> cbTipoUser;
 
-    private ArrayList<String> lista;
+    private ArrayList<String> lista = new ArrayList<>();
     private ObservableList<String> obsTipoUser;
 
     @FXML
@@ -24,6 +25,11 @@ public class Principal implements Initializable{
 
     @FXML
     private TextField tfUser;
+
+    @FXML
+    private TextField tfNumero;
+
+    private ServicoLogin logado;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -46,17 +52,28 @@ public class Principal implements Initializable{
 
     @FXML
     void logar(ActionEvent event) {
+        String login = tfUser.getText();
+        String senha = tfSenha.getText();
+        String numero = tfNumero.getText();
+
+        logado.setLogin(login);
+        logado.setSenha(senha);
+        logado.setNumero(numero);
+
         if(cbTipoUser.getValue().equals("Aluno")){
-            //verificar se o login e senha existem no banco
+            logado.setTipoUsuario(3);
+
             App.pushScreen("PRINCIPALALUNO");
+            
         }else if(cbTipoUser.getValue().equals("Professor")){
             //verificar se o login e senha existem no banco
+            logado.setTipoUsuario(2);
             App.pushScreen("PRINCIPALPROFESSOR");
         }else if(cbTipoUser.getValue().equals("Coordenador")){
             //verificar se o login e senha existem no banco
+            logado.setTipoUsuario(1);
             App.pushScreen("PRINCIPALCOORDENADOR");
         }
-        App.pushScreen("PRINCIPAL");
     }
 
     

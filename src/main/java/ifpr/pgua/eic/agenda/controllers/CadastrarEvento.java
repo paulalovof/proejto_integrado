@@ -38,6 +38,7 @@ public class CadastrarEvento {
         String descricao = tfDescricao.getText();
         LocalDate dataPicker = dtPrazo.getValue();
         //Coordenador coordenador = repositorioCoordenador.getLogado();
+        //como pegar o usuario que esta logado?
 
         Resultado resultado = repositorio.cadastrarEvento(nome, descricao, dataPicker, null);
         
