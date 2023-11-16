@@ -33,7 +33,9 @@ public class PrincipalCoordenador implements Initializable{
     
     @FXML
     void sair(ActionEvent event) {
-        App.popScreen();
+        logado.logout();
+        App.pegaLogado(logado);
+        App.pushScreen("PRINCIPAL");
     }
 
     @Override

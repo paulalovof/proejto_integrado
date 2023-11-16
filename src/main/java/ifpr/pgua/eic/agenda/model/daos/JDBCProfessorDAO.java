@@ -44,7 +44,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
     }
 
     @Override
-    public Resultado getById(int id) {
+    public int getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idUsuario=?");
 
@@ -53,17 +53,15 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             ResultSet rs = pstm.executeQuery();
             
             if(rs.next()){
-                String nome = rs.getString("nome");
-                String numeroSiape = rs.getString("numeroSiape");
-
-                Professor professor = new Professor(id, nome, numeroSiape);
-
-                return Resultado.sucesso("Professor encontrado", professor);
+                int idProfessor = rs.getInt("idProfessor");
+                return idProfessor;
             }else{
-                return Resultado.erro("Professor não encontrado!");
+                System.out.println("Professor não encontrado!");
+                return 0;
             }
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("Erro desconhecido!");
+            return 0;
         }
     }
     
@@ -79,7 +77,8 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             rs.next();
 
             int professorId = rs.getInt("idProfessor");
-            return getById(professorId);
+            int idProfessor = getById(professorId);
+            return Resultado.sucesso("Professor encontrado!", idProfessor);
 
 
         } catch (SQLException e) {

@@ -9,7 +9,6 @@ import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
 import ifpr.pgua.eic.agenda.model.daos.CoordenadorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ServicoLoginDAO;
-import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.entities.Usuario;
 import javafx.collections.FXCollections;
@@ -88,20 +87,28 @@ public class Principal implements Initializable{
         Alert alert;
 
         if(usuario == null){
-            alert = new Alert(AlertType.ERROR);
+            alert = new Alert(AlertType.ERROR, "Usuário não válido!");
             alert.showAndWait();
         }else{
-            alert = new Alert(AlertType.INFORMATION);
+            alert = new Alert(AlertType.INFORMATION, "voce está logado!");
             logado = new ServicoLogin(usuario, dao);
             App.pegaLogado(logado);
-            if(cbTipoUser.getValue().equals("Aluno")){
+
+            int idAluno = alunoDAO.getById(usuario.getId());
+            int idCoordenador = coordenadorDAO.getById(usuario.getId());
+            int idProfessor = professorDAO.getById(usuario.getId());
+
+            if(cbTipoUser.getValue().equals("Aluno") && idAluno != 0){
                 App.pushScreen("PRINCIPALALUNO");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Professor")){
+            }else if(cbTipoUser.getValue().equals("Professor") && idProfessor != 0){
                 App.pushScreen("PRINCIPALPROFESSOR");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Coordenador")){
+            }else if(cbTipoUser.getValue().equals("Coordenador") && idCoordenador != 0){
                 App.pushScreen("PRINCIPALCOORDENADOR");
+                alert.showAndWait();
+            }else{
+                alert = new Alert(AlertType.ERROR, "Credenciais Incorretas!");
                 alert.showAndWait();
             }
         }

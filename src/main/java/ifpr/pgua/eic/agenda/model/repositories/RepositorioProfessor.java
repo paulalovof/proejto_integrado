@@ -15,7 +15,7 @@ public class RepositorioProfessor {
         this.logado = logado;
     }
 
-    public Resultado getById(int id){
+    public int getById(int id){
         return dao.getById(id);
     }
 

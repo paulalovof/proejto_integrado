@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.github.hugoperlin.results.Resultado;
-
 import ifpr.pgua.eic.agenda.model.entities.Usuario;
 
 public class JDBCServicoLoginDAO implements ServicoLoginDAO{
@@ -37,6 +35,8 @@ public class JDBCServicoLoginDAO implements ServicoLoginDAO{
             return null;
         }
     }
+
+    
 
     
 }

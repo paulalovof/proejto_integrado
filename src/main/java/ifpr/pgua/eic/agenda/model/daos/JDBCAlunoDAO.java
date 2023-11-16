@@ -44,7 +44,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
     }
 
     @Override
-    public Resultado getById(int id) {
+    public int getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idUsuario=?");
 
@@ -53,17 +53,16 @@ public class JDBCAlunoDAO implements AlunoDAO{
             ResultSet rs = pstm.executeQuery();
             
             if(rs.next()){
-                String nome = rs.getString("nome");
-                String numeroMatricula = rs.getString("numeroMatricula");
+                int idAluno = rs.getInt("idAluno");
 
-                Aluno aluno = new Aluno(id, nome, numeroMatricula);
-
-                return Resultado.sucesso("Aluno encontrado", aluno);
+                return idAluno; 
             }else{
-                return Resultado.erro("Aluno não encontrado!");
+                System.out.println("Aluno não encontrado!");
+                return 0;
             }
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("Erro desconhecido!");
+            return 0;
         }
     }
     @Override
@@ -80,7 +79,8 @@ public class JDBCAlunoDAO implements AlunoDAO{
 
             int alunoId = rs.getInt("idAluno");
 
-            return getById(alunoId);
+            int idAluno = getById(alunoId);
+            return Resultado.sucesso("Aluno encontrado", idAluno);
 
 
         } catch (SQLException e) {

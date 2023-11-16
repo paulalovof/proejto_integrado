@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
-import ifpr.pgua.eic.agenda.model.entities.Aluno;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
-import ifpr.pgua.eic.agenda.model.entities.Aluno;
 import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
@@ -44,7 +43,7 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     }
 
     @Override
-    public Resultado getById(int id) {
+    public int getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idUsuario=?");
 
@@ -53,17 +52,16 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             ResultSet rs = pstm.executeQuery();
             
             if(rs.next()){
-                String nome = rs.getString("nome");
-                String numeroSiape = rs.getString("numeroSiape");
+                int idCoordenador = rs.getInt("idCoordenador");
 
-                Coordenador coordenador = new Coordenador(id, nome, numeroSiape);
-
-                return Resultado.sucesso("Coordenador encontrado", coordenador);
+                return idCoordenador;
             }else{
-                return Resultado.erro("Coordenador não encontrado!");
+                System.out.println("Coordenador não encontrado!");
+                return 0;
             }
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("Erro desconhecido!");
+            return 0;
         }
     }
 
@@ -79,7 +77,8 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             rs.next();
 
             int coordenadorId = rs.getInt("idCoordenador");
-            return getById(coordenadorId);
+            int idCoordenador = getById(coordenadorId);
+            return Resultado.sucesso("Coordenador encontrado!", idCoordenador);
 
 
         } catch (SQLException e) {
