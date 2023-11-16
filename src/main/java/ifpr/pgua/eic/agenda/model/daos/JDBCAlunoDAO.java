@@ -29,11 +29,9 @@ public class JDBCAlunoDAO implements AlunoDAO{
             while(rs.next()){
                 int id = rs.getInt("idUsuario");
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
                 String numeroMatricula = rs.getString("numeroIdentificacao");
 
-                Aluno aluno = new Aluno(id, nome, login, senha, numeroMatricula);
+                Aluno aluno = new Aluno(id, nome,  numeroMatricula);
                 lista.add(aluno);
             }
             
@@ -58,7 +56,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
                 String senha = rs.getString("senha");
                 String numeroMatricula = rs.getString("numeroIdentificacao");
 
-                Aluno aluno = new Aluno(id, nome, login, senha, numeroMatricula);
+                Aluno aluno = new Aluno(id, nome, numeroMatricula);
 
                 return Resultado.sucesso("Aluno encontrado", aluno);
             }else{

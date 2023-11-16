@@ -1,54 +1,31 @@
 package ifpr.pgua.eic.agenda.model.entities;
 
+import ifpr.pgua.eic.agenda.model.daos.ServicoLoginDAO;
+
 public class ServicoLogin {
-    private String login;
-    private String senha;
-    private String numero;
-    private int tipoUsuario;
+    
+    private Usuario logado;
+    private ServicoLoginDAO dao;
 
-    /*public ServicoLogin(String login, String senha, String numero){
-        this.login = login;
-        this.senha = senha;
-        this.numero = numero;
+    public ServicoLogin(Usuario logado, ServicoLoginDAO dao){
+        this.logado = logado;
+        this.dao = dao;
     }
 
-    public ServicoLogin(String login, String senha, String numero, int tipo){
-        this.login = login;
-        this.senha = senha;
-        this.numero = numero;
-        this.tipoUsuario = tipo;
-    }
-    */
+    public Usuario login(String login, String senha){
+        //busca dao na tabela usuario se existe esse login e senha
+        dao.validaUsuario(login, senha);
+        //seta o logado com os dados vindo do banco
+        logado = new Usuario(login, senha);
 
-    public String getLogin() {
-        return login;
+        return logado;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void logout(){
+        logado = null;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public int getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(int tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public Usuario getLogado(){
+        return logado;
     }
 }

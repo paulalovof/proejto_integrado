@@ -28,11 +28,9 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             while(rs.next()){
                 int id = rs.getInt("idUsuario");
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
                 String numeroSiape = rs.getString("numeroIdentificacao");
 
-                Coordenador coordenador = new Coordenador(id, nome, login, senha, numeroSiape);
+                Coordenador coordenador = new Coordenador(id, nome, numeroSiape);
                 lista.add(coordenador);
             }
             
@@ -53,11 +51,9 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             
             if(rs.next()){
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
                 String numeroSiape = rs.getString("numeroIdentificacao");
 
-                Coordenador coordenador = new Coordenador(id, nome, login, senha, numeroSiape);
+                Coordenador coordenador = new Coordenador(id, nome, numeroSiape);
 
                 return Resultado.sucesso("Coordenador encontrado", coordenador);
             }else{

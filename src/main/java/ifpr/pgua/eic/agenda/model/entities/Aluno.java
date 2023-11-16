@@ -4,23 +4,19 @@ public class Aluno{
 
     private int idAluno;
     private String nome;
-    private String login;
-    private String senha;
     private String numeroMatricula;
+    private Usuario usuario;
 
-    public Aluno(int idAluno, String nome, String login, String senha, String numeroMatricula){
+    public Aluno(int idAluno, String nome, String numeroMatricula){
         this.idAluno = idAluno;
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroMatricula = numeroMatricula;
     }
 
-    public Aluno(String nome, String login, String senha, String numeroMatricula){
+    public Aluno(String nome, String numeroMatricula, Usuario usuario){
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroMatricula = numeroMatricula;
+        this.usuario = usuario;
     }
 
     public int getIdAluno() {
@@ -35,22 +31,6 @@ public class Aluno{
     }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
     
     public String getNumeroMatricula() {

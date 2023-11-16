@@ -56,22 +56,20 @@ public class Principal implements Initializable{
         String senha = tfSenha.getText();
         String numero = tfNumero.getText();
 
-        logado.setLogin(login);
-        logado.setSenha(senha);
-        logado.setNumero(numero);
+
 
         if(cbTipoUser.getValue().equals("Aluno")){
-            logado.setTipoUsuario(3);
+            
 
             App.pushScreen("PRINCIPALALUNO");
             
         }else if(cbTipoUser.getValue().equals("Professor")){
             //verificar se o login e senha existem no banco
-            logado.setTipoUsuario(2);
+            
             App.pushScreen("PRINCIPALPROFESSOR");
         }else if(cbTipoUser.getValue().equals("Coordenador")){
             //verificar se o login e senha existem no banco
-            logado.setTipoUsuario(1);
+            
             App.pushScreen("PRINCIPALCOORDENADOR");
         }
     }

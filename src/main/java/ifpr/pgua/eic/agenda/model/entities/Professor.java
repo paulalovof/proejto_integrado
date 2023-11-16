@@ -4,23 +4,19 @@ public class Professor{
     
     private int idProfessor;
     private String nome;
-    private String login;
-    private String senha;
     private String numeroSiape;
+    private Usuario usuario;
 
-    public Professor(int idProfessor, String nome, String login, String senha, String numeroSiape){
+    public Professor(int idProfessor, String nome, String numeroSiape){
         this.idProfessor = idProfessor;
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroSiape = numeroSiape;
     }
 
-    public Professor(String nome, String login, String senha, String numeroSiape){
+    public Professor(String nome, String numeroSiape, Usuario usuario){
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroSiape = numeroSiape;
+        this.usuario = usuario;
     }
 
     public int getIdProfessor() {
@@ -36,22 +32,6 @@ public class Professor{
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
     public String getNumeroSiape() {
         return numeroSiape;
@@ -60,5 +40,12 @@ public class Professor{
         this.numeroSiape = numeroSiape;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
 }

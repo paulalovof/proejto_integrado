@@ -19,10 +19,10 @@ public class PrincipalAluno implements Initializable{
 
     private ServicoLogin logado;
 
-    public PrincipalAluno(ServicoLogin logado){
+    /*public PrincipalAluno(ServicoLogin logado){
         this.logado = logado;
     }
-
+    */
     @FXML
     void cadastrarAnotacao(ActionEvent event){
         App.pushScreen("CADASTRAANOTACAO");
@@ -35,6 +35,6 @@ public class PrincipalAluno implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        System.out.println("usuario: "+logado.getLogin());
+        System.out.println("usuario: ");
     }
 }

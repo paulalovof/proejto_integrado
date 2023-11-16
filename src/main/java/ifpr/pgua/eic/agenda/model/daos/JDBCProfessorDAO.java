@@ -28,11 +28,9 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             while(rs.next()){
                 int id = rs.getInt("idUsuario");
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
                 String numeroSiape = rs.getString("numeroIdentificacao");
 
-                Professor professor = new Professor(id, nome, login, senha, numeroSiape);
+                Professor professor = new Professor(id, nome, numeroSiape);
                 lista.add(professor);
             }
             
@@ -57,7 +55,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
                 String senha = rs.getString("senha");
                 String numeroSiape = rs.getString("numeroIdentificacao");
 
-                Professor professor = new Professor(id, nome, login, senha, numeroSiape);
+                Professor professor = new Professor(id, nome, numeroSiape);
 
                 return Resultado.sucesso("Professor encontrado", professor);
             }else{
