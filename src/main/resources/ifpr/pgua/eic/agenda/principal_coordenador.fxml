@@ -18,7 +18,8 @@
             </ImageView>
 
             <Label text="Coordenador" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="428.0">
+            <Label fx:id="nomeCoordenador" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="323.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#sair" text="Sair" />
                </children>

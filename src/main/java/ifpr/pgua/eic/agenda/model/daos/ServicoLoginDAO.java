@@ -2,6 +2,8 @@ package ifpr.pgua.eic.agenda.model.daos;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.agenda.model.entities.Usuario;
+
 public interface ServicoLoginDAO {
-    Resultado validaUsuario(String login, String senha);
+    Usuario validaUsuario(String login, String senha);
 }

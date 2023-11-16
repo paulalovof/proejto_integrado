@@ -10,6 +10,7 @@ import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 
@@ -17,12 +18,17 @@ public class PrincipalAluno implements Initializable{
     @FXML
     private ListView<Atividades> lstAtividadesProximas;
 
-    private ServicoLogin logado;
+    @FXML
+    private Label nomeAluno;
 
-    /*public PrincipalAluno(ServicoLogin logado){
+    private ServicoLogin logado;
+    private RepositorioAluno repositorio;
+
+    public PrincipalAluno(ServicoLogin logado, RepositorioAluno repositorio){
         this.logado = logado;
+        this.repositorio = repositorio;
     }
-    */
+    
     @FXML
     void cadastrarAnotacao(ActionEvent event){
         App.pushScreen("CADASTRAANOTACAO");
@@ -30,11 +36,13 @@ public class PrincipalAluno implements Initializable{
 
     @FXML
     void sair(ActionEvent event) {
-        App.popScreen();
+        logado.logout();
+        App.pegaLogado(logado);
+        App.pushScreen("PRINCIPAL");
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        System.out.println("usuario: ");
+        nomeAluno.setText(repositorio.getNomeLogado(logado));
     }
 }

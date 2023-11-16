@@ -18,7 +18,7 @@ public class JDBCServicoLoginDAO implements ServicoLoginDAO{
     }
 
     @Override
-    public Resultado validaUsuario(String login, String senha) {
+    public Usuario validaUsuario(String login, String senha) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios where login = ? and senha = ?");
 
@@ -31,9 +31,10 @@ public class JDBCServicoLoginDAO implements ServicoLoginDAO{
                 usuario = new Usuario(id, login, senha);
             }
             
-            return Resultado.sucesso("Usuario logado!", usuario);
+            return usuario;
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("deu ruim no jdbc servico login :/");
+            return null;
         }
     }
 

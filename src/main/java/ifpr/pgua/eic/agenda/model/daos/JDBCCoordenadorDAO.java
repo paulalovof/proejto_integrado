@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
+
+import ifpr.pgua.eic.agenda.model.entities.Aluno;
 import ifpr.pgua.eic.agenda.model.entities.Coordenador;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class JDBCCoordenadorDAO implements CoordenadorDAO{
     private FabricaConexoes fabrica;
@@ -43,7 +46,7 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idCoordenador=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idUsuario=?");
 
             pstm.setInt(1, id);
 
@@ -81,6 +84,31 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
 
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Coordenador getNomeLogado(ServicoLogin logado) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores where idUsuario = ?");
+
+            pstm.setInt(1, logado.getLogado().getId());
+            ResultSet rs = pstm.executeQuery();
+
+            Coordenador coordenador = null;
+
+            while(rs.next()){
+                int id = rs.getInt("idCoordenador");
+                String nome = rs.getString("nome");
+                String numeroSiape = rs.getString("numeroSiape");
+
+                coordenador = new Coordenador(id, nome,  numeroSiape);
+            }
+            
+            return coordenador;
+        } catch (SQLException e) {
+            System.out.println("deu ruim no jdbcCoordenador :/");
+            return null;
         }
     }
     

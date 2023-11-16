@@ -14,9 +14,8 @@ public class ServicoLogin {
 
     public Usuario login(String login, String senha){
         //busca dao na tabela usuario se existe esse login e senha
-        dao.validaUsuario(login, senha);
+        logado = dao.validaUsuario(login, senha);
         //seta o logado com os dados vindo do banco
-        logado = new Usuario(login, senha);
 
         return logado;
     }

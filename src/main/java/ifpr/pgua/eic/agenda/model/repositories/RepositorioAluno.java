@@ -9,20 +9,17 @@ public class RepositorioAluno {
     private AlunoDAO dao;
     private ServicoLogin logado;
 
-    public RepositorioAluno(AlunoDAO dao){
+    public RepositorioAluno(AlunoDAO dao, ServicoLogin logado){
         this.dao = dao;
+        this.logado = logado;
     }
 
     public Resultado getById(int id){
         return dao.getById(id);
     }
 
-    public void setLogado(String login, String senha, String numero){
-        //logado = new ServicoLogin(login, senha, numero);
-    } 
-
-    public ServicoLogin getLogado(){
-        return logado;
+    public String getNomeLogado(ServicoLogin logado){
+        return dao.getNomeLogado(logado).getNome();
     }
 
 }

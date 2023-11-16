@@ -17,7 +17,8 @@
                <Image url="@icons/perfil.png" />
             </ImageView>
             <Label text="Professor" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="450.0">
+            <Label fx:id="nomeProfessor" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="309.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#sair" text="Sair" />
                </children>

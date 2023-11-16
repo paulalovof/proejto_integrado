@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
+
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class JDBCProfessorDAO implements ProfessorDAO{
     private FabricaConexoes fabrica;
@@ -43,7 +46,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idProfessor=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idUsuario=?");
 
             pstm.setInt(1, id);
 
@@ -81,6 +84,31 @@ public class JDBCProfessorDAO implements ProfessorDAO{
 
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Professor getNomeLogado(ServicoLogin logado) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores where idUsuario = ?");
+
+            pstm.setInt(1, logado.getLogado().getId());
+            ResultSet rs = pstm.executeQuery();
+
+            Professor professor = null;
+
+            while(rs.next()){
+                int id = rs.getInt("idProfessor");
+                String nome = rs.getString("nome");
+                String numeroSiape = rs.getString("numeroSiape");
+
+                professor = new Professor(id, nome,  numeroSiape);
+            }
+            
+            return professor;
+        } catch (SQLException e) {
+            System.out.println("deu ruim no jdbcProfessor :/");
+            return null;
         }
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.entities.Aluno;
+import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class JDBCAlunoDAO implements AlunoDAO{
     private FabricaConexoes fabrica;
@@ -45,7 +46,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idAluno=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idUsuario=?");
 
             pstm.setInt(1, id);
 
@@ -84,6 +85,32 @@ public class JDBCAlunoDAO implements AlunoDAO{
 
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Aluno getNomeLogado(ServicoLogin logado) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos where idUsuario = ?");
+
+            pstm.setInt(1, logado.getLogado().getId());
+            ResultSet rs = pstm.executeQuery();
+
+            Aluno aluno = null;
+
+            while(rs.next()){
+                System.out.println("entrou no while jdbc aluno");
+                int id = rs.getInt("idAluno");
+                String nome = rs.getString("nome");
+                String numeroMatricula = rs.getString("numeroMatricula");
+
+                aluno = new Aluno(id, nome,  numeroMatricula);
+            }
+            
+            return aluno;
+        } catch (SQLException e) {
+            System.out.println("deu ruim no jdbcAluno :/");
+            return null;
         }
     }
     

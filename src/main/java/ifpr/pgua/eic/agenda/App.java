@@ -37,24 +37,25 @@ import io.github.hugoperlin.navigatorfx.ScreenRegistryFXML;
  */
 public class App extends BaseAppNavigator {
     
+    private ServicoLoginDAO servicoLoginDAO = new JDBCServicoLoginDAO(FabricaConexoes.getInstance());
+    private static ServicoLogin servicoLogin = null;
+
+
     private AnotacoesDAO anotacoesDAO = new JDBCAnotacoesDAO(FabricaConexoes.getInstance());
     private AlunoDAO alunoDAO = new JDBCAlunoDAO(FabricaConexoes.getInstance());
     private RepositorioAnotacoes repositorioAnotacoes = new RepositorioAnotacoes(anotacoesDAO, alunoDAO);
-    private RepositorioAluno repositorioAluno = new RepositorioAluno(alunoDAO);
+    private RepositorioAluno repositorioAluno = new RepositorioAluno(alunoDAO, servicoLogin);
 
     private AtividadesDAO atividadesDAO = new JDBCAtividadesDAO(FabricaConexoes.getInstance());
     private ProfessorDAO professorDAO = new JDBCProfessorDAO(FabricaConexoes.getInstance());
     private RepositorioAtividades repositorioAtividades = new RepositorioAtividades(atividadesDAO, professorDAO);
-    private RepositorioProfessor repositorioProfessor= new RepositorioProfessor(professorDAO);
+    private RepositorioProfessor repositorioProfessor= new RepositorioProfessor(professorDAO, servicoLogin);
 
 
     private EventosDAO eventosDAO = new JDBCEventosDAO(FabricaConexoes.getInstance());
     private CoordenadorDAO coordenadorDAO = new JDBCCoordenadorDAO(FabricaConexoes.getInstance());
     private RepositorioEventos repositorioEventos = new RepositorioEventos(eventosDAO, coordenadorDAO);
-    private RepositorioCoordenador repositorioCoordenador = new RepositorioCoordenador(coordenadorDAO);
-
-    private ServicoLoginDAO servicoLoginDAO = new JDBCServicoLoginDAO(FabricaConexoes.getInstance());
-    private static ServicoLogin servicoLogin = null;
+    private RepositorioCoordenador repositorioCoordenador = new RepositorioCoordenador(coordenadorDAO, servicoLogin);
     //como pegar usuario e senha digitados?
 
     public static void main(String[] args) {
@@ -80,10 +81,10 @@ public class App extends BaseAppNavigator {
 
     @Override
     public void registrarTelas() {
-        registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal(servicoLoginDAO, servicoLogin)));
-        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno()));
-        registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador()));
-        registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor()));
+        registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal(servicoLoginDAO, servicoLogin, alunoDAO, coordenadorDAO, professorDAO)));
+        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno(servicoLogin, repositorioAluno)));
+        registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador(servicoLogin, repositorioCoordenador)));
+        registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor(servicoLogin, repositorioProfessor)));
         registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno)));
         registraTela("CADASTRAATIVIDADE", new ScreenRegistryFXML(App.class, "cadastrar_atividade", o-> new CadastrarAtividade(repositorioAtividades, repositorioProfessor)));
         registraTela("CADASTRAEVENTO", new ScreenRegistryFXML(App.class, "cadastrar_evento", o-> new CadastrarEvento(repositorioEventos, repositorioCoordenador)));

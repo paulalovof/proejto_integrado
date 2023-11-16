@@ -4,10 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.github.hugoperlin.results.Resultado;
-
 import ifpr.pgua.eic.agenda.App;
+import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
+import ifpr.pgua.eic.agenda.model.daos.CoordenadorDAO;
+import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ServicoLoginDAO;
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.entities.Usuario;
 import javafx.collections.FXCollections;
@@ -36,14 +38,23 @@ public class Principal implements Initializable{
     private ServicoLoginDAO dao;
     private Usuario usuario;
 
+    private AlunoDAO alunoDAO;
+    private CoordenadorDAO coordenadorDAO;
+    private ProfessorDAO professorDAO;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         preencherComboBox();
+        tfUser.clear();
+        tfSenha.clear();
     }
 
-    public Principal(ServicoLoginDAO dao, ServicoLogin logado){
+    public Principal(ServicoLoginDAO dao, ServicoLogin logado, AlunoDAO alunoDAO, CoordenadorDAO coordenadorDAO, ProfessorDAO professorDAO){
         this.dao = dao;
         this.logado = logado;
+        this.alunoDAO = alunoDAO;
+        this.coordenadorDAO = coordenadorDAO;
+        this.professorDAO = professorDAO;
     }
 
     private void preencherComboBox(){
@@ -68,21 +79,19 @@ public class Principal implements Initializable{
         String senha = tfSenha.getText();
 
         usuario = new Usuario(login, senha);
-        //ServicoLogin logado = new ServicoLogin(usuario, dao);
-        //dao.validaUsuario(login, senha)
+
         System.out.println("usuario: "+usuario.getLogin());
         System.out.println("senha: "+usuario.getSenha());
 
-        Resultado resultado = dao.validaUsuario(login, senha);
+        usuario = dao.validaUsuario(login, senha);
         
         Alert alert;
 
-        if(resultado.foiErro()){
-            alert = new Alert(AlertType.ERROR, resultado.getMsg());
+        if(usuario == null){
+            alert = new Alert(AlertType.ERROR);
             alert.showAndWait();
         }else{
-            alert = new Alert(AlertType.INFORMATION, resultado.getMsg());
-            System.out.println("usuario: "+usuario.getLogin());
+            alert = new Alert(AlertType.INFORMATION);
             logado = new ServicoLogin(usuario, dao);
             App.pegaLogado(logado);
             if(cbTipoUser.getValue().equals("Aluno")){
