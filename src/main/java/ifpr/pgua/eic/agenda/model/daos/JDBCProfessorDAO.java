@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
-import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 

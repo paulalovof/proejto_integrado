@@ -34,7 +34,7 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
             pstm.setString(2, atividade.getDescricao());
             pstm.setDate(3, Date.valueOf(atividade.getData()));
             pstm.setBoolean(4, atividade.isAtividadeAvaliada());
-            pstm.setInt(4, atividade.getProfessor().getIdProfessor());
+            pstm.setInt(5, atividade.getProfessor().getIdProfessor());
             
             int ret = pstm.executeUpdate();
 

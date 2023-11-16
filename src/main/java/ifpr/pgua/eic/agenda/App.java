@@ -85,9 +85,9 @@ public class App extends BaseAppNavigator {
         registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno(servicoLogin, repositorioAluno)));
         registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador(servicoLogin, repositorioCoordenador)));
         registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor(servicoLogin, repositorioProfessor)));
-        registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno)));
-        registraTela("CADASTRAATIVIDADE", new ScreenRegistryFXML(App.class, "cadastrar_atividade", o-> new CadastrarAtividade(repositorioAtividades, repositorioProfessor)));
-        registraTela("CADASTRAEVENTO", new ScreenRegistryFXML(App.class, "cadastrar_evento", o-> new CadastrarEvento(repositorioEventos, repositorioCoordenador)));
+        registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao.fxml", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno, servicoLogin)));
+        registraTela("CADASTRAATIVIDADE", new ScreenRegistryFXML(App.class, "cadastrar_atividade.fxml", o-> new CadastrarAtividade(repositorioAtividades, repositorioProfessor, servicoLogin)));
+        registraTela("CADASTRAEVENTO", new ScreenRegistryFXML(App.class, "cadastrar_evento.fxml", o-> new CadastrarEvento(repositorioEventos, repositorioCoordenador, servicoLogin)));
         
     }
 

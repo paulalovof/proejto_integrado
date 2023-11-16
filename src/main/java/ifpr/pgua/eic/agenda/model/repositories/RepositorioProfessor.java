@@ -4,6 +4,7 @@ package ifpr.pgua.eic.agenda.model.repositories;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
+import ifpr.pgua.eic.agenda.model.entities.Professor;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class RepositorioProfessor {
@@ -21,6 +22,10 @@ public class RepositorioProfessor {
 
     public String getNomeLogado(ServicoLogin logado){
         return dao.getNomeLogado(logado).getNome();
+    }
+
+    public Professor getLogado(ServicoLogin logado){
+        return dao.getNomeLogado(logado);
     }
     
 }

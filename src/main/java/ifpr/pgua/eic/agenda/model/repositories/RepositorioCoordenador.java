@@ -1,8 +1,8 @@
 package ifpr.pgua.eic.agenda.model.repositories;
 
-import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.CoordenadorDAO;
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class RepositorioCoordenador {
@@ -20,5 +20,9 @@ public class RepositorioCoordenador {
 
     public String getNomeLogado(ServicoLogin logado){
         return dao.getNomeLogado(logado).getNome();
+    }
+
+    public Coordenador getLogado(ServicoLogin logado){
+        return dao.getNomeLogado(logado);
     }
 }

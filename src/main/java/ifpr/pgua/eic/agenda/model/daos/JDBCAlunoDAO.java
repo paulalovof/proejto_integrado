@@ -99,7 +99,6 @@ public class JDBCAlunoDAO implements AlunoDAO{
             Aluno aluno = null;
 
             while(rs.next()){
-                System.out.println("entrou no while jdbc aluno");
                 int id = rs.getInt("idAluno");
                 String nome = rs.getString("nome");
                 String numeroMatricula = rs.getString("numeroMatricula");

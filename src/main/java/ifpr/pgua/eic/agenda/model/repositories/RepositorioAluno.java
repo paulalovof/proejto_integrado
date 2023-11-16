@@ -3,6 +3,7 @@ package ifpr.pgua.eic.agenda.model.repositories;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
+import ifpr.pgua.eic.agenda.model.entities.Aluno;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public class RepositorioAluno {
@@ -20,6 +21,10 @@ public class RepositorioAluno {
 
     public String getNomeLogado(ServicoLogin logado){
         return dao.getNomeLogado(logado).getNome();
+    }
+
+    public Aluno getLogado(ServicoLogin logado){
+        return dao.getNomeLogado(logado);
     }
 
 }
