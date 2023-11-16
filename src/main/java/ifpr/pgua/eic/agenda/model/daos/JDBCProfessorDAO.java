@@ -19,7 +19,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
     @Override
     public Resultado listar() {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios where tipoUsuario = 2");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores");
 
             ResultSet rs = pstm.executeQuery();
 
@@ -28,7 +28,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             while(rs.next()){
                 int id = rs.getInt("idUsuario");
                 String nome = rs.getString("nome");
-                String numeroSiape = rs.getString("numeroIdentificacao");
+                String numeroSiape = rs.getString("numeroSiape");
 
                 Professor professor = new Professor(id, nome, numeroSiape);
                 lista.add(professor);
@@ -43,7 +43,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios WHERE idUsuario=? and tipoUsuario = 2");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idProfessor=?");
 
             pstm.setInt(1, id);
 
@@ -51,9 +51,7 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             
             if(rs.next()){
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
-                String numeroSiape = rs.getString("numeroIdentificacao");
+                String numeroSiape = rs.getString("numeroSiape");
 
                 Professor professor = new Professor(id, nome, numeroSiape);
 
@@ -70,14 +68,14 @@ public class JDBCProfessorDAO implements ProfessorDAO{
     public Resultado buscarProfessorAtividade(int atividadeId) {
         try (Connection con = fabrica.getConnection()) {
 
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_atividades WHERE idAtividade=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT idProfessor FROM tb_atividades WHERE idAtividade=?");
 
             pstm.setInt(1, atividadeId);
 
             ResultSet rs = pstm.executeQuery();
             rs.next();
 
-            int professorId = rs.getInt("idUsuario");
+            int professorId = rs.getInt("idProfessor");
             return getById(professorId);
 
 

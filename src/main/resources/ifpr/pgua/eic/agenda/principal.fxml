@@ -38,12 +38,6 @@
             <TextField fx:id="tfSenha" prefHeight="25.0" prefWidth="143.0" promptText="digite sua senha" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" spacing="10.0">
-         <children>
-            <Label text="Número de Identificação: " />
-            <TextField fx:id="tfNumero" promptText="número matrícula / SIAPE" />
-         </children>
-      </HBox>
       <HBox alignment="CENTER" prefHeight="53.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" onAction="#logar" text="Logar" />

@@ -19,7 +19,9 @@ import ifpr.pgua.eic.agenda.model.daos.JDBCAtividadesDAO;
 import ifpr.pgua.eic.agenda.model.daos.JDBCCoordenadorDAO;
 import ifpr.pgua.eic.agenda.model.daos.JDBCEventosDAO;
 import ifpr.pgua.eic.agenda.model.daos.JDBCProfessorDAO;
+import ifpr.pgua.eic.agenda.model.daos.JDBCServicoLoginDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
+import ifpr.pgua.eic.agenda.model.daos.ServicoLoginDAO;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
@@ -51,10 +53,16 @@ public class App extends BaseAppNavigator {
     private RepositorioEventos repositorioEventos = new RepositorioEventos(eventosDAO, coordenadorDAO);
     private RepositorioCoordenador repositorioCoordenador = new RepositorioCoordenador(coordenadorDAO);
 
-    
+    private ServicoLoginDAO servicoLoginDAO = new JDBCServicoLoginDAO(FabricaConexoes.getInstance());
+    private static ServicoLogin servicoLogin = null;
+    //como pegar usuario e senha digitados?
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static void pegaLogado(ServicoLogin logado){
+        servicoLogin = logado;
     }
 
     @Override
@@ -72,7 +80,7 @@ public class App extends BaseAppNavigator {
 
     @Override
     public void registrarTelas() {
-        registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal()));
+        registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal(servicoLoginDAO, servicoLogin)));
         registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno()));
         registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador()));
         registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor()));

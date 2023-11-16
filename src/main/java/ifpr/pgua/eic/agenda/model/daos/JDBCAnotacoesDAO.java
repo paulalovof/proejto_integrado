@@ -28,7 +28,7 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
             
             
             PreparedStatement pstm = con.
-            prepareStatement("INSERT INTO tb_anotacoes(nome,descricao, data, idUsuario) VALUES (?,?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            prepareStatement("INSERT INTO tb_anotacoes(nome,descricao, data, idAluno) VALUES (?,?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             pstm.setString(1,anotacao.getNome());
             pstm.setString(2, anotacao.getDescricao());
@@ -44,7 +44,7 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
 
                 anotacao.setIdAnotacao(id);
 
-                return Resultado.sucesso("Anotacao cadastrado!", anotacao);
+                return Resultado.sucesso("Anotacao cadastrada!", anotacao);
             }
             return Resultado.erro("Erro desconhecido!");
         }catch(SQLException e){
@@ -97,9 +97,9 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
 
                 Anotacoes anotacao = new Anotacoes(id, null, nome, descricao, data);
 
-                return Resultado.sucesso("Anotacao encontrado", anotacao);
+                return Resultado.sucesso("Anotacao encontrada", anotacao);
             }else{
-                return Resultado.erro("Anotacao não encontrado!");
+                return Resultado.erro("Anotacao não encontrada!");
             }
 
 
@@ -114,7 +114,7 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
     @Override
     public Resultado atualizar(int id, Anotacoes novo) {
         try(Connection con = fabrica.getConnection()){
-            PreparedStatement pstm = con.prepareStatement("UPDATE tb_anotacoes set nome = ?, descricao = ?, data = ?, idUsuario = ? where idAnotacao = ?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE tb_anotacoes set nome = ?, descricao = ?, data = ?, idAluno = ? where idAnotacao = ?");
 
             pstm.setString(1, novo.getNome());
             pstm.setString(2, novo.getDescricao());
@@ -126,7 +126,7 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
 
             if(ret == 1){
                 novo.setIdAnotacao(id);
-                return Resultado.sucesso("Anotacao editado!", novo);
+                return Resultado.sucesso("Anotacao editada!", novo);
             }
             return Resultado.erro("vixe....");
 

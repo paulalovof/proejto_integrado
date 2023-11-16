@@ -27,7 +27,7 @@ public class JDBCEventosDAO implements EventosDAO{
         try(Connection con = fabrica.getConnection()){
             
             
-            PreparedStatement pstm = con.prepareStatement("INSERT INTO tb_eventos(nome,descricao, data, idUsuario) VALUES (?,?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO tb_eventos(nome,descricao, data, idCoordenador) VALUES (?,?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             pstm.setString(1, evento.getNome());
             pstm.setString(2, evento.getDescricao());
@@ -108,7 +108,7 @@ public class JDBCEventosDAO implements EventosDAO{
     @Override
     public Resultado atualizar(int id, Eventos novo) {
         try(Connection con = fabrica.getConnection()){
-            PreparedStatement pstm = con.prepareStatement("UPDATE tb_eventos set nome = ?, descricao = ?, data = ?, idUsuario = ? where idEvento = ?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE tb_eventos set nome = ?, descricao = ?, data = ?, idCoordenador = ? where idEvento = ?");
 
             pstm.setString(1, novo.getNome());
             pstm.setString(2, novo.getDescricao());

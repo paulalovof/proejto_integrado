@@ -40,5 +40,12 @@ public class Aluno{
         this.numeroMatricula = numeroMatricula;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     
 }

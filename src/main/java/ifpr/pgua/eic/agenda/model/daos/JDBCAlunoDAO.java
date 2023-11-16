@@ -20,16 +20,17 @@ public class JDBCAlunoDAO implements AlunoDAO{
     @Override
     public Resultado listar() {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios where tipoUsuario = 3");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos");
 
             ResultSet rs = pstm.executeQuery();
 
             ArrayList<Aluno> lista = new ArrayList<>();
 
             while(rs.next()){
-                int id = rs.getInt("idUsuario");
+                int id = rs.getInt("idAluno");
+                //int idUsuario = rs.getInt("idUsuario");
                 String nome = rs.getString("nome");
-                String numeroMatricula = rs.getString("numeroIdentificacao");
+                String numeroMatricula = rs.getString("numeroMatricula");
 
                 Aluno aluno = new Aluno(id, nome,  numeroMatricula);
                 lista.add(aluno);
@@ -44,7 +45,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios WHERE idUsuario=? and tipoUsuario = 3");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idAluno=?");
 
             pstm.setInt(1, id);
 
@@ -52,9 +53,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
             
             if(rs.next()){
                 String nome = rs.getString("nome");
-                String login = rs.getString("login");
-                String senha = rs.getString("senha");
-                String numeroMatricula = rs.getString("numeroIdentificacao");
+                String numeroMatricula = rs.getString("numeroMatricula");
 
                 Aluno aluno = new Aluno(id, nome, numeroMatricula);
 
@@ -71,14 +70,14 @@ public class JDBCAlunoDAO implements AlunoDAO{
         
         try (Connection con = fabrica.getConnection()) {
 
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_anotacoes WHERE idAnotacao=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT idAluno FROM tb_anotacoes WHERE idAnotacao=?");
 
             pstm.setInt(1, anotacaoId);
 
             ResultSet rs = pstm.executeQuery();
             rs.next();
 
-            int alunoId = rs.getInt("idUsuario");
+            int alunoId = rs.getInt("idAluno");
 
             return getById(alunoId);
 

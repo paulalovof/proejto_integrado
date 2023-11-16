@@ -28,7 +28,7 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
         try(Connection con = fabrica.getConnection()){
             
             PreparedStatement pstm = con.
-            prepareStatement("INSERT INTO tb_atividades(nome, descricao, data, avaliada, idUsuario) VALUES (?,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            prepareStatement("INSERT INTO tb_atividades(nome, descricao, data, avaliada, idProfessor) VALUES (?,?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             
             pstm.setString(1,atividade.getNome());
             pstm.setString(2, atividade.getDescricao());
@@ -111,7 +111,7 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
     @Override
     public Resultado atualizar(int id, Atividades novo) {
         try(Connection con = fabrica.getConnection()){
-            PreparedStatement pstm = con.prepareStatement("UPDATE tb_atividades set nome = ?, descricao = ?, data = ?, avaliada = ?, idUsuario = ? where idAtividade = ?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE tb_atividades set nome = ?, descricao = ?, data = ?, avaliada = ?, idProfessor = ? where idAtividade = ?");
 
             pstm.setString(1, novo.getNome());
             pstm.setString(2, novo.getDescricao());

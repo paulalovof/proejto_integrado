@@ -19,16 +19,16 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     @Override
     public Resultado listar() {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios where tipoUsuario = 1");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores");
 
             ResultSet rs = pstm.executeQuery();
 
             ArrayList<Coordenador> lista = new ArrayList<>();
 
             while(rs.next()){
-                int id = rs.getInt("idUsuario");
+                int id = rs.getInt("idCoordenador");
                 String nome = rs.getString("nome");
-                String numeroSiape = rs.getString("numeroIdentificacao");
+                String numeroSiape = rs.getString("numeroSiape");
 
                 Coordenador coordenador = new Coordenador(id, nome, numeroSiape);
                 lista.add(coordenador);
@@ -43,7 +43,7 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     @Override
     public Resultado getById(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_usuarios WHERE idUsuario=? and tipoUsuario = 1");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idCoordenador=?");
 
             pstm.setInt(1, id);
 
@@ -51,7 +51,7 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             
             if(rs.next()){
                 String nome = rs.getString("nome");
-                String numeroSiape = rs.getString("numeroIdentificacao");
+                String numeroSiape = rs.getString("numeroSiape");
 
                 Coordenador coordenador = new Coordenador(id, nome, numeroSiape);
 
@@ -68,14 +68,14 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     public Resultado buscarCoordenadorEvento(int eventoId) {
         try (Connection con = fabrica.getConnection()) {
 
-            PreparedStatement pstm = con.prepareStatement("SELECT idUsuario FROM tb_eventos WHERE idEvento=?");
+            PreparedStatement pstm = con.prepareStatement("SELECT idCoordenador FROM tb_eventos WHERE idEvento=?");
 
             pstm.setInt(1, eventoId);
 
             ResultSet rs = pstm.executeQuery();
             rs.next();
 
-            int coordenadorId = rs.getInt("idUsuario");
+            int coordenadorId = rs.getInt("idCoordenador");
             return getById(coordenadorId);
 
 

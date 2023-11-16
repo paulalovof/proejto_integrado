@@ -4,23 +4,19 @@ public class Coordenador{
 
     private int idCoordenador;
     private String nome;
-    private String login;
-    private String senha;
     private String numeroSiape;
+    private Usuario usuario;
 
-    public Coordenador(int idCoordenador, String nome, String login, String senha, String numeroSiape){
+    public Coordenador(int idCoordenador, String nome, String numeroSiape){
         this.idCoordenador = idCoordenador;
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroSiape = numeroSiape;
     }
 
-    public Coordenador(String nome, String login, String senha, String numeroSiape){
+    public Coordenador(String nome, String numeroSiape, Usuario usuario){
         this.nome = nome;
-        this.login = login;
-        this.senha = senha;
         this.numeroSiape = numeroSiape;
+        this.usuario = usuario;
     }
 
 
@@ -38,26 +34,17 @@ public class Coordenador{
         this.nome = nome;
     }
     
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    
     public String getNumeroSiape() {
         return numeroSiape;
     }
     public void setNumeroSiape(String numeroSiape) {
         this.numeroSiape = numeroSiape;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

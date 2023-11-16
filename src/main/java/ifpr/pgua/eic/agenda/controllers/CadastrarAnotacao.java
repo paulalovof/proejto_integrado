@@ -46,7 +46,7 @@ public class CadastrarAnotacao {
         //String senha = logado.getSenha();
         //String numero = logado.getNumero();
 
-        //Aluno aluno = new Aluno(nome, login, senha, numero);
+        //Aluno aluno = new Aluno(nome, numero);
         Resultado resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker, null);
         
         Alert alert;
