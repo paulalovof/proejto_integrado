@@ -39,10 +39,9 @@ import io.github.hugoperlin.navigatorfx.ScreenRegistryFXML;
  * JavaFX App
  */
 public class App extends BaseAppNavigator {
-    
+
     private ServicoLoginDAO servicoLoginDAO = new JDBCServicoLoginDAO(FabricaConexoes.getInstance());
     private static ServicoLogin servicoLogin = null;
-
 
     private AnotacoesDAO anotacoesDAO = new JDBCAnotacoesDAO(FabricaConexoes.getInstance());
     private AlunoDAO alunoDAO = new JDBCAlunoDAO(FabricaConexoes.getInstance());
@@ -52,20 +51,19 @@ public class App extends BaseAppNavigator {
     private AtividadesDAO atividadesDAO = new JDBCAtividadesDAO(FabricaConexoes.getInstance());
     private ProfessorDAO professorDAO = new JDBCProfessorDAO(FabricaConexoes.getInstance());
     private RepositorioAtividades repositorioAtividades = new RepositorioAtividades(atividadesDAO, professorDAO);
-    private RepositorioProfessor repositorioProfessor= new RepositorioProfessor(professorDAO, servicoLogin);
-
+    private RepositorioProfessor repositorioProfessor = new RepositorioProfessor(professorDAO, servicoLogin);
 
     private EventosDAO eventosDAO = new JDBCEventosDAO(FabricaConexoes.getInstance());
     private CoordenadorDAO coordenadorDAO = new JDBCCoordenadorDAO(FabricaConexoes.getInstance());
     private RepositorioEventos repositorioEventos = new RepositorioEventos(eventosDAO, coordenadorDAO);
     private RepositorioCoordenador repositorioCoordenador = new RepositorioCoordenador(coordenadorDAO, servicoLogin);
-    //como pegar usuario e senha digitados?
+    // como pegar usuario e senha digitados?
 
     public static void main(String[] args) {
         launch();
     }
 
-    public static void pegaLogado(ServicoLogin logado){
+    public static void pegaLogado(ServicoLogin logado) {
         servicoLogin = logado;
     }
 
@@ -74,7 +72,6 @@ public class App extends BaseAppNavigator {
         // TODO Auto-generated method stub
         return "PRINCIPAL";
     }
-
 
     @Override
     public String getAppTitle() {
@@ -94,6 +91,7 @@ public class App extends BaseAppNavigator {
         registraTela("VISUALIZAANOTACAO", new ScreenRegistryFXML(App.class, "visualizar_anotacao.fxml", o-> new VisualizarAnotacao(repositorioAluno, repositorioAnotacoes, servicoLogin, repositorioAtividades, repositorioEventos)));
         registraTela("VISUALIZAATIVIDADE", new ScreenRegistryFXML(App.class, "visualizar_atividades.fxml", o-> new VisualizarAtividade(repositorioAtividades, repositorioProfessor, servicoLogin)));
         registraTela("VISUALIZAEVENTO", new ScreenRegistryFXML(App.class, "visualizar_eventos.fxml", o-> new VisualizarEvento(repositorioEventos, repositorioCoordenador, servicoLogin)));
+
     }
 
 }

@@ -23,7 +23,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-public class Principal implements Initializable{
+
+public class Principal implements Initializable {
     @FXML
     private ComboBox<String> cbTipoUser;
 
@@ -51,7 +52,8 @@ public class Principal implements Initializable{
         tfSenha.clear();
     }
 
-    public Principal(ServicoLoginDAO dao, ServicoLogin logado, AlunoDAO alunoDAO, CoordenadorDAO coordenadorDAO, ProfessorDAO professorDAO){
+    public Principal(ServicoLoginDAO dao, ServicoLogin logado, AlunoDAO alunoDAO, CoordenadorDAO coordenadorDAO,
+            ProfessorDAO professorDAO) {
         this.dao = dao;
         this.logado = logado;
         this.alunoDAO = alunoDAO;
@@ -59,7 +61,7 @@ public class Principal implements Initializable{
         this.professorDAO = professorDAO;
     }
 
-    private void preencherComboBox(){
+    private void preencherComboBox() {
         String tipoAluno = "Aluno";
         String tipoProfessor = "Professor";
         String tipoCoordenador = "Coordenador";
@@ -79,17 +81,16 @@ public class Principal implements Initializable{
     void logar(ActionEvent event) {
         String login = tfUser.getText();
         String senha = tfSenha.getText();
-
         //usuario = new Usuario(login, senha);
 
         usuario = dao.validaUsuario(login, senha);
-        
+
         Alert alert;
 
-        if(usuario == null){
+        if (usuario == null) {
             alert = new Alert(AlertType.ERROR, "Usuário não válido!");
             alert.showAndWait();
-        }else{
+        } else {
             alert = new Alert(AlertType.INFORMATION, "voce está logado!");
             logado = new ServicoLogin(usuario, dao);
             App.pegaLogado(logado);
@@ -118,5 +119,4 @@ public class Principal implements Initializable{
 
     }
 
-    
 }
