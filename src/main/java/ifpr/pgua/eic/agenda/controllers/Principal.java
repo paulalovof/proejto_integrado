@@ -20,7 +20,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-public class Principal implements Initializable{
+
+public class Principal implements Initializable {
     @FXML
     private ComboBox<String> cbTipoUser;
 
@@ -48,7 +49,8 @@ public class Principal implements Initializable{
         tfSenha.clear();
     }
 
-    public Principal(ServicoLoginDAO dao, ServicoLogin logado, AlunoDAO alunoDAO, CoordenadorDAO coordenadorDAO, ProfessorDAO professorDAO){
+    public Principal(ServicoLoginDAO dao, ServicoLogin logado, AlunoDAO alunoDAO, CoordenadorDAO coordenadorDAO,
+            ProfessorDAO professorDAO) {
         this.dao = dao;
         this.logado = logado;
         this.alunoDAO = alunoDAO;
@@ -56,7 +58,7 @@ public class Principal implements Initializable{
         this.professorDAO = professorDAO;
     }
 
-    private void preencherComboBox(){
+    private void preencherComboBox() {
         String tipoAluno = "Aluno";
         String tipoProfessor = "Professor";
         String tipoCoordenador = "Coordenador";
@@ -79,17 +81,17 @@ public class Principal implements Initializable{
 
         usuario = new Usuario(login, senha);
 
-        System.out.println("usuario: "+usuario.getLogin());
-        System.out.println("senha: "+usuario.getSenha());
+        System.out.println("usuario: " + usuario.getLogin());
+        System.out.println("senha: " + usuario.getSenha());
 
         usuario = dao.validaUsuario(login, senha);
-        
+
         Alert alert;
 
-        if(usuario == null){
+        if (usuario == null) {
             alert = new Alert(AlertType.ERROR, "Usuário não válido!");
             alert.showAndWait();
-        }else{
+        } else {
             alert = new Alert(AlertType.INFORMATION, "voce está logado!");
             logado = new ServicoLogin(usuario, dao);
             App.pegaLogado(logado);
@@ -98,16 +100,16 @@ public class Principal implements Initializable{
             int idCoordenador = coordenadorDAO.getById(usuario.getId());
             int idProfessor = professorDAO.getById(usuario.getId());
 
-            if(cbTipoUser.getValue().equals("Aluno") && idAluno != 0){
+            if (cbTipoUser.getValue().equals("Aluno") && idAluno != 0) {
                 App.pushScreen("PRINCIPALALUNO");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Professor") && idProfessor != 0){
+            } else if (cbTipoUser.getValue().equals("Professor") && idProfessor != 0) {
                 App.pushScreen("PRINCIPALPROFESSOR");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Coordenador") && idCoordenador != 0){
+            } else if (cbTipoUser.getValue().equals("Coordenador") && idCoordenador != 0) {
                 App.pushScreen("PRINCIPALCOORDENADOR");
                 alert.showAndWait();
-            }else{
+            } else {
                 alert = new Alert(AlertType.ERROR, "Credenciais Incorretas!");
                 alert.showAndWait();
             }
@@ -115,5 +117,4 @@ public class Principal implements Initializable{
 
     }
 
-    
 }
