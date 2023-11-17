@@ -1,5 +1,6 @@
 package ifpr.pgua.eic.agenda.model.repositories;
 
+import java.net.CookiePolicy;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.CoordenadorDAO;
 import ifpr.pgua.eic.agenda.model.daos.EventosDAO;
+import ifpr.pgua.eic.agenda.model.entities.Aluno;
+import ifpr.pgua.eic.agenda.model.entities.Anotacoes;
 import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.Eventos;
 
@@ -37,24 +40,18 @@ public class RepositorioEventos {
         return resultado;
     }
 
-    public Resultado listarEventos(){
-        Resultado resultado = dao.listar();
+    public Resultado listarEventos(int id){
+        Resultado resultado = dao.listar(id);
 
         if(resultado.foiSucesso()){
-            //iremos finalizar de montar os objetos
             List<Eventos> lista = (List<Eventos>)resultado.comoSucesso().getObj();
-            
             for(Eventos evento:lista){
-                
-                Resultado r1 = coordenadorDAO.buscarCoordenadorEvento(evento.getIdEvento());
-                if(r1.foiErro()){
-                    return r1;
-                }
-                //Categoria categoria = (Categoria)r1.comoSucesso().getObj();
-                Coordenador coordenador = (Coordenador)r1.comoSucesso().getObj();
+                Coordenador coordenador = coordenadorDAO.buscarCoordenadorEvento(evento.getIdEvento());
+
                 evento.setCoordenador(coordenador);
             }
         }
+        
         return resultado;
     }
 

@@ -36,26 +36,21 @@ public class RepositorioAnotacoes {
         return resultado;
     }
 
-    public Resultado listarAnotacoes(){
-        Resultado resultado = dao.listar();
-
+    public Resultado listarAnotacoes(int id){
+        Resultado resultado = dao.listar(id);
+    
         if(resultado.foiSucesso()){
-            //iremos finalizar de montar os objetos
+                //iremos finalizar de montar os objetos
             List<Anotacoes> lista = (List<Anotacoes>)resultado.comoSucesso().getObj();
-            
             for(Anotacoes anotacao:lista){
-                
-                Resultado r1 = alunoDAO.buscarAlunoAnotacao(anotacao.getIdAnotacao());
-                if(r1.foiErro()){
-                    return r1;
-                }
-                //Categoria categoria = (Categoria)r1.comoSucesso().getObj();
-                Aluno aluno = (Aluno)r1.comoSucesso().getObj();
+                Aluno aluno = alunoDAO.buscarAlunoAnotacao(anotacao.getIdAnotacao());
+
                 anotacao.setAluno(aluno);
             }
         }
-
+    
         return resultado;
+        
     }
     
 }

@@ -9,6 +9,9 @@ import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
 import ifpr.pgua.eic.agenda.model.daos.CoordenadorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
 import ifpr.pgua.eic.agenda.model.daos.ServicoLoginDAO;
+import ifpr.pgua.eic.agenda.model.entities.Aluno;
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
+import ifpr.pgua.eic.agenda.model.entities.Professor;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.entities.Usuario;
 import javafx.collections.FXCollections;
@@ -77,10 +80,7 @@ public class Principal implements Initializable{
         String login = tfUser.getText();
         String senha = tfSenha.getText();
 
-        usuario = new Usuario(login, senha);
-
-        System.out.println("usuario: "+usuario.getLogin());
-        System.out.println("senha: "+usuario.getSenha());
+        //usuario = new Usuario(login, senha);
 
         usuario = dao.validaUsuario(login, senha);
         
@@ -94,21 +94,24 @@ public class Principal implements Initializable{
             logado = new ServicoLogin(usuario, dao);
             App.pegaLogado(logado);
 
-            int idAluno = alunoDAO.getById(usuario.getId());
-            int idCoordenador = coordenadorDAO.getById(usuario.getId());
-            int idProfessor = professorDAO.getById(usuario.getId());
+            //int idAluno = alunoDAO.getById(usuario.getId()).getIdAluno();
+            //int idCoordenador = coordenadorDAO.getById(usuario.getId()).getIdCoordenador();
+            //int idProfessor = professorDAO.getById(usuario.getId());
+            Aluno idAluno = alunoDAO.getById(usuario.getId());
+            Coordenador idCoordenador = coordenadorDAO.getById(usuario.getId());
+            Professor idProfessor = professorDAO.getById(usuario.getId());
 
-            if(cbTipoUser.getValue().equals("Aluno") && idAluno != 0){
+            if(cbTipoUser.getValue().equals("Aluno") && idAluno != null){
                 App.pushScreen("PRINCIPALALUNO");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Professor") && idProfessor != 0){
+            }else if(cbTipoUser.getValue().equals("Professor") && idProfessor != null){
                 App.pushScreen("PRINCIPALPROFESSOR");
                 alert.showAndWait();
-            }else if(cbTipoUser.getValue().equals("Coordenador") && idCoordenador != 0){
+            }else if(cbTipoUser.getValue().equals("Coordenador") && idCoordenador != null){
                 App.pushScreen("PRINCIPALCOORDENADOR");
                 alert.showAndWait();
             }else{
-                alert = new Alert(AlertType.ERROR, "Credenciais Incorretas!");
+                alert = new Alert(AlertType.ERROR, "Tipo de Usuário Incorreto!");
                 alert.showAndWait();
             }
         }

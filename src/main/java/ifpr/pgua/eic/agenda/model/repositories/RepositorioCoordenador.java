@@ -15,7 +15,7 @@ public class RepositorioCoordenador {
     }
 
     public int getById(int id){
-        return dao.getById(id);
+        return dao.getById(id).getIdCoordenador();
     }
 
     public String getNomeLogado(ServicoLogin logado){

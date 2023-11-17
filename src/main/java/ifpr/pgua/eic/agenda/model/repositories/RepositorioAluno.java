@@ -1,6 +1,5 @@
 package ifpr.pgua.eic.agenda.model.repositories;
 
-import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
 import ifpr.pgua.eic.agenda.model.entities.Aluno;
@@ -16,7 +15,7 @@ public class RepositorioAluno {
     }
 
     public int getById(int id){
-        return dao.getById(id);
+        return dao.getById(id).getIdAluno();
     }
 
     public String getNomeLogado(ServicoLogin logado){

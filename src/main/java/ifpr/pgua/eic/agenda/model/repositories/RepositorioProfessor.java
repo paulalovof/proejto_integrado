@@ -17,7 +17,7 @@ public class RepositorioProfessor {
     }
 
     public int getById(int id){
-        return dao.getById(id);
+        return dao.getById(id).getIdProfessor();
     }
 
     public String getNomeLogado(ServicoLogin logado){

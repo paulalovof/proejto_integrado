@@ -53,25 +53,29 @@ public class JDBCEventosDAO implements EventosDAO{
 
 
     @Override
-    public Resultado listar() {
+    public Resultado listar(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_eventos");
-
+            PreparedStatement pstm = null;
+            if(id != 0){
+                pstm = con.prepareStatement("SELECT * FROM tb_eventos where idCoordenador = ? ORDER BY data ASC");
+            }else{
+                pstm = con.prepareStatement("SELECT * FROM tb_eventos ORDER BY data ASC");
+            }
+            
             ResultSet rs = pstm.executeQuery();
 
             ArrayList<Eventos> lista = new ArrayList<>();
 
             while(rs.next()){
-                int id = rs.getInt("idEvento");
+                int idEvento = rs.getInt("idEvento");
                 String nome = rs.getString("nome");
                 String descricao = rs.getString("descricao");
                 LocalDate data = rs.getDate("data").toLocalDate();
 
-                Eventos evento = new Eventos(id, null, nome, descricao, data);
+                Eventos evento = new Eventos(idEvento, null, nome, descricao, data);
                 lista.add(evento);
 
             }
-            
             return Resultado.sucesso("Lista de eventos", lista);
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());

@@ -1,6 +1,8 @@
 package ifpr.pgua.eic.agenda.controllers;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import com.github.hugoperlin.results.Resultado;
 
@@ -11,12 +13,14 @@ import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class CadastrarAnotacao {
+public class CadastrarAnotacao implements Initializable{
     @FXML
     private DatePicker dtPrazo;
 
@@ -25,6 +29,9 @@ public class CadastrarAnotacao {
 
     @FXML
     private TextField tfNome;
+
+    @FXML
+    private Label nomeAluno;
 
     private RepositorioAnotacoes repositorio;
     private RepositorioAluno repositorioAluno;
@@ -65,5 +72,10 @@ public class CadastrarAnotacao {
     @FXML
     void sair(ActionEvent event) {
         App.pushScreen("PRINCIPAL");
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        nomeAluno.setText(repositorioAluno.getNomeLogado(logado));
     }
 }

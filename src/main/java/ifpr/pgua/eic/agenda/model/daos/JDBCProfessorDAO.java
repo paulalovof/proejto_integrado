@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
@@ -42,8 +43,8 @@ public class JDBCProfessorDAO implements ProfessorDAO{
         }
     }
 
-    @Override
-    public int getById(int id) {
+     @Override
+    public Professor getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idUsuario=?");
 
@@ -53,19 +54,50 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             
             if(rs.next()){
                 int idProfessor = rs.getInt("idProfessor");
-                return idProfessor;
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroSiape");
+
+                Professor professor = new Professor(idProfessor, nome, numero);
+                return professor; 
             }else{
                 System.out.println("Professor não encontrado!");
-                return 0;
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Erro desconhecido!");
-            return 0;
+            return null;
         }
     }
-    
+
     @Override
-    public Resultado buscarProfessorAtividade(int atividadeId) {
+    public Professor getByIdProfessor(int id) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_professores WHERE idProfessor=?");
+
+            pstm.setInt(1, id);
+
+            ResultSet rs = pstm.executeQuery();
+            
+            if(rs.next()){
+                int idProfessor = rs.getInt("idProfessor");
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroSiape");
+
+                Professor professor = new Professor(idProfessor, nome, numero);
+                return professor;
+            }else{
+                System.out.println("Professor não encontrado!");
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro desconhecido!");
+            return null;
+        }
+    }
+
+
+    @Override
+    public Professor buscarProfessorAtividade(int atividadeId){
         try (Connection con = fabrica.getConnection()) {
 
             PreparedStatement pstm = con.prepareStatement("SELECT idProfessor FROM tb_atividades WHERE idAtividade=?");
@@ -75,13 +107,14 @@ public class JDBCProfessorDAO implements ProfessorDAO{
             ResultSet rs = pstm.executeQuery();
             rs.next();
 
-            int professorId = rs.getInt("idProfessor");
-            int idProfessor = getById(professorId);
-            return Resultado.sucesso("Professor encontrado!", idProfessor);
+            int idProfessor = rs.getInt("idProfessor");
+            
+            return getByIdProfessor(idProfessor);
 
 
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("erro no buscar coordenador evento");
+            return null;
         }
     }
 

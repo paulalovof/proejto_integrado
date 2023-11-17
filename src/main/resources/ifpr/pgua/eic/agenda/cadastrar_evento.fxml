@@ -21,7 +21,8 @@
                </image>
             </ImageView>
             <Label text="Coordenador" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="428.0">
+            <Label fx:id="lbNome" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="268.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#sair" text="Sair" />
                </children>

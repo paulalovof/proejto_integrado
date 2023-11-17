@@ -7,6 +7,9 @@ import ifpr.pgua.eic.agenda.controllers.Principal;
 import ifpr.pgua.eic.agenda.controllers.PrincipalAluno;
 import ifpr.pgua.eic.agenda.controllers.PrincipalCoordenador;
 import ifpr.pgua.eic.agenda.controllers.PrincipalProfessor;
+import ifpr.pgua.eic.agenda.controllers.VisualizarAnotacao;
+import ifpr.pgua.eic.agenda.controllers.VisualizarAtividade;
+import ifpr.pgua.eic.agenda.controllers.VisualizarEvento;
 import ifpr.pgua.eic.agenda.model.daos.AlunoDAO;
 import ifpr.pgua.eic.agenda.model.daos.AnotacoesDAO;
 import ifpr.pgua.eic.agenda.model.daos.AtividadesDAO;
@@ -88,7 +91,9 @@ public class App extends BaseAppNavigator {
         registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao.fxml", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno, servicoLogin)));
         registraTela("CADASTRAATIVIDADE", new ScreenRegistryFXML(App.class, "cadastrar_atividade.fxml", o-> new CadastrarAtividade(repositorioAtividades, repositorioProfessor, servicoLogin)));
         registraTela("CADASTRAEVENTO", new ScreenRegistryFXML(App.class, "cadastrar_evento.fxml", o-> new CadastrarEvento(repositorioEventos, repositorioCoordenador, servicoLogin)));
-        
+        registraTela("VISUALIZAANOTACAO", new ScreenRegistryFXML(App.class, "visualizar_anotacao.fxml", o-> new VisualizarAnotacao(repositorioAluno, repositorioAnotacoes, servicoLogin, repositorioAtividades, repositorioEventos)));
+        registraTela("VISUALIZAATIVIDADE", new ScreenRegistryFXML(App.class, "visualizar_atividades.fxml", o-> new VisualizarAtividade(repositorioAtividades, repositorioProfessor, servicoLogin)));
+        registraTela("VISUALIZAEVENTO", new ScreenRegistryFXML(App.class, "visualizar_eventos.fxml", o-> new VisualizarEvento(repositorioEventos, repositorioCoordenador, servicoLogin)));
     }
 
 }

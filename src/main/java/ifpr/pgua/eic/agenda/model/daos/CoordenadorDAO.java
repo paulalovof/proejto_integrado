@@ -7,8 +7,8 @@ import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public interface CoordenadorDAO {
     Resultado listar();
-    int getById(int id);
-    Resultado buscarCoordenadorEvento(int coordenadorId);
-    
+    Coordenador getById(int id);
+    Coordenador getByIdCoordenador(int id);
+    Coordenador buscarCoordenadorEvento(int coordenadorId);
     Coordenador getNomeLogado(ServicoLogin logado);
 }

@@ -53,25 +53,27 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
     }
 
     @Override
-    public Resultado listar() {
+    public Resultado listar(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_anotacoes");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_anotacoes where idAluno = ? ORDER BY data ASC");
 
+            
+            pstm.setInt(1,id);
             ResultSet rs = pstm.executeQuery();
 
             ArrayList<Anotacoes> lista = new ArrayList<>();
 
             while(rs.next()){
-                int id = rs.getInt("idAnotacao");
+                int idAnotacao = rs.getInt("idAnotacao");
                 String nome = rs.getString("nome");
                 String descricao = rs.getString("descricao");
                 LocalDate data = rs.getDate("data").toLocalDate();
 
-                Anotacoes anotacao = new Anotacoes(id, null, nome, descricao, data);
+                Anotacoes anotacao = new Anotacoes(idAnotacao, null, nome, descricao, data);
                 lista.add(anotacao);
 
             }
-            
+
             return Resultado.sucesso("Lista de anotacoes", lista);
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());

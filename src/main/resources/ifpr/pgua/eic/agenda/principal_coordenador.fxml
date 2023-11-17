@@ -32,7 +32,7 @@
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER" prefHeight="177.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Visualizar Calendário" />
+            <Button mnemonicParsing="false" onAction="#visualizar" text="Visualizar Calendário" />
          </children>
          <opaqueInsets>
             <Insets />

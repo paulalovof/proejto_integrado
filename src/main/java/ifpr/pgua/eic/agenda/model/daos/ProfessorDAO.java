@@ -7,7 +7,8 @@ import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 
 public interface ProfessorDAO {
     Resultado listar();
-    int getById(int id);
-    Resultado buscarProfessorAtividade(int professorId);
+    Professor getById(int id);
+    Professor getByIdProfessor(int id);
+    Professor buscarProfessorAtividade(int atividadeId);
     Professor getNomeLogado(ServicoLogin logado);
 }

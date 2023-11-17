@@ -70,5 +70,11 @@ public class Atividades {
         this.atividadeAvaliada = atividadeAvaliada;
     }
 
-    
+    public String toString(){
+        if(atividadeAvaliada){
+            return "Data de Prazo: "+ data+" \n"+ nome + "AVALIADA("+ descricao+ ")";
+        }else{
+            return "Data de Prazo: "+ data+" \n"+ nome + "("+ descricao+ ")";
+        }
+    }
 }

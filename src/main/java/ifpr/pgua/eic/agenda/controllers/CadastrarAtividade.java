@@ -1,6 +1,8 @@
 package ifpr.pgua.eic.agenda.controllers;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import com.github.hugoperlin.results.Resultado;
 
@@ -11,13 +13,15 @@ import ifpr.pgua.eic.agenda.model.repositories.RepositorioAtividades;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioProfessor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class CadastrarAtividade {
+public class CadastrarAtividade implements Initializable{
     @FXML
     private DatePicker dtPrazo;
 
@@ -29,6 +33,9 @@ public class CadastrarAtividade {
 
     @FXML
     private CheckBox cbAvaliada;
+
+    @FXML
+    private Label lbNome;
 
     private RepositorioAtividades repositorio;
     private RepositorioProfessor repositorioProfessor;
@@ -70,5 +77,10 @@ public class CadastrarAtividade {
     @FXML
     void sair(ActionEvent event) {
         App.pushScreen("PRINCIPAL");
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        lbNome.setText(repositorioProfessor.getNomeLogado(logado));
     }
 }

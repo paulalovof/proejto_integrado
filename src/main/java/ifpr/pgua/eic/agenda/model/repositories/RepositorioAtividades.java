@@ -8,6 +8,8 @@ import com.github.hugoperlin.results.Resultado;
 import ifpr.pgua.eic.agenda.model.daos.AtividadesDAO;
 import ifpr.pgua.eic.agenda.model.daos.ProfessorDAO;
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
+import ifpr.pgua.eic.agenda.model.entities.Coordenador;
+import ifpr.pgua.eic.agenda.model.entities.Eventos;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
 
 public class RepositorioAtividades {
@@ -37,21 +39,14 @@ public class RepositorioAtividades {
         return resultado;
     }
 
-    public Resultado listarAtividades(){
-        Resultado resultado = dao.listar();
+    public Resultado listarAtividades(int id){
+        Resultado resultado = dao.listar(id);
 
         if(resultado.foiSucesso()){
-            //iremos finalizar de montar os objetos
             List<Atividades> lista = (List<Atividades>)resultado.comoSucesso().getObj();
-            
             for(Atividades atividade:lista){
-                
-                Resultado r1 = professorDAO.buscarProfessorAtividade(atividade.getIdAtividade());
-                if(r1.foiErro()){
-                    return r1;
-                }
-                //Categoria categoria = (Categoria)r1.comoSucesso().getObj();
-                Professor professor = (Professor)r1.comoSucesso().getObj();
+                //Atividades atividade = professorDAO.buscarProfessorAtividade(atividade);
+                Professor professor = professorDAO.buscarProfessorAtividade(atividade.getIdAtividade());
                 atividade.setProfessor(professor);
             }
         }

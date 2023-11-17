@@ -44,7 +44,7 @@ public class JDBCAlunoDAO implements AlunoDAO{
     }
 
     @Override
-    public int getById(int id) {
+    public Aluno getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idUsuario=?");
 
@@ -54,19 +54,49 @@ public class JDBCAlunoDAO implements AlunoDAO{
             
             if(rs.next()){
                 int idAluno = rs.getInt("idAluno");
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroMatricula");
 
-                return idAluno; 
+                Aluno aluno = new Aluno(idAluno, nome, numero);
+                return aluno; 
             }else{
                 System.out.println("Aluno não encontrado!");
-                return 0;
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Erro desconhecido!");
-            return 0;
+            return null;
         }
     }
+
     @Override
-    public Resultado buscarAlunoAnotacao(int anotacaoId) {
+    public Aluno getByIdAluno(int id) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_alunos WHERE idAluno=?");
+
+            pstm.setInt(1, id);
+
+            ResultSet rs = pstm.executeQuery();
+            
+            if(rs.next()){
+                int idAluno = rs.getInt("idAluno");
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroMatricula");
+
+                Aluno aluno = new Aluno(idAluno, nome, numero);
+                return aluno; 
+            }else{
+                System.out.println("Aluno não encontrado!");
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro desconhecido!");
+            return null;
+        }
+    }
+
+    @Override
+    public Aluno buscarAlunoAnotacao(int anotacaoId) {
         
         try (Connection con = fabrica.getConnection()) {
 
@@ -75,16 +105,16 @@ public class JDBCAlunoDAO implements AlunoDAO{
             pstm.setInt(1, anotacaoId);
 
             ResultSet rs = pstm.executeQuery();
-            rs.next();
-
-            int alunoId = rs.getInt("idAluno");
-
-            int idAluno = getById(alunoId);
-            return Resultado.sucesso("Aluno encontrado", idAluno);
+            int alunoId = 0;
+            while(rs.next()){
+                alunoId = rs.getInt("idAluno");
+            }
+            return getByIdAluno(alunoId);
 
 
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("Erro no buscar aluno anotacao");
+            return null;
         }
     }
 

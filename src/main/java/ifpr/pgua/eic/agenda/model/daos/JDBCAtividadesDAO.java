@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
+import ifpr.pgua.eic.agenda.model.entities.Eventos;
 import ifpr.pgua.eic.agenda.utils.DBUtils;
 
 public class JDBCAtividadesDAO implements AtividadesDAO{
@@ -54,26 +55,30 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
     }
 
     @Override
-    public Resultado listar() {
+    public Resultado listar(int id) {
         try (Connection con = fabrica.getConnection()) {
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_atividades");
-
+            PreparedStatement pstm = null;
+            if(id != 0){
+                pstm = con.prepareStatement("SELECT * FROM tb_atividades where idProfessor = ? ORDER BY data ASC");
+            }else{
+                pstm = con.prepareStatement("SELECT * FROM tb_atividades ORDER BY data ASC");
+            }
+            
             ResultSet rs = pstm.executeQuery();
 
             ArrayList<Atividades> lista = new ArrayList<>();
 
             while(rs.next()){
-                int id = rs.getInt("idAtividade");
+                int idAtividade = rs.getInt("idAtividade");
                 String nome = rs.getString("nome");
                 String descricao = rs.getString("descricao");
                 LocalDate data = rs.getDate("data").toLocalDate();
                 Boolean avaliada = rs.getBoolean("avaliada");
 
-                Atividades atividade = new Atividades(id, null, nome, descricao, data, avaliada);
+                Atividades atividade = new Atividades(idAtividade, null, nome, descricao, data, avaliada);
                 lista.add(atividade);
 
             }
-            
             return Resultado.sucesso("Lista de atividades", lista);
         } catch (SQLException e) {
             return Resultado.erro(e.getMessage());

@@ -43,7 +43,7 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
     }
 
     @Override
-    public int getById(int id) {
+    public Coordenador getById(int id) {
         try (Connection con = fabrica.getConnection()) {
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idUsuario=?");
 
@@ -53,20 +53,50 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             
             if(rs.next()){
                 int idCoordenador = rs.getInt("idCoordenador");
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroSiape");
 
-                return idCoordenador;
+                Coordenador coordenador = new Coordenador(idCoordenador, nome, numero);
+                return coordenador; 
             }else{
                 System.out.println("Coordenador não encontrado!");
-                return 0;
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Erro desconhecido!");
-            return 0;
+            return null;
         }
     }
 
     @Override
-    public Resultado buscarCoordenadorEvento(int eventoId) {
+    public Coordenador getByIdCoordenador(int id) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_coordenadores WHERE idCoordenador=?");
+
+            pstm.setInt(1, id);
+
+            ResultSet rs = pstm.executeQuery();
+            
+            if(rs.next()){
+                int idCoordenador = rs.getInt("idCoordenador");
+                String nome = rs.getString("nome");
+                String numero = rs.getString("numeroSiape");
+
+                Coordenador coordenador = new Coordenador(idCoordenador, nome, numero);
+                return coordenador;
+            }else{
+                System.out.println("Coordenador não encontrado!");
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro desconhecido!");
+            return null;
+        }
+    }
+
+
+    @Override
+    public Coordenador buscarCoordenadorEvento(int eventoId) {
         try (Connection con = fabrica.getConnection()) {
 
             PreparedStatement pstm = con.prepareStatement("SELECT idCoordenador FROM tb_eventos WHERE idEvento=?");
@@ -77,12 +107,13 @@ public class JDBCCoordenadorDAO implements CoordenadorDAO{
             rs.next();
 
             int coordenadorId = rs.getInt("idCoordenador");
-            int idCoordenador = getById(coordenadorId);
-            return Resultado.sucesso("Coordenador encontrado!", idCoordenador);
+            
+            return getByIdCoordenador(coordenadorId);
 
 
         } catch (SQLException e) {
-            return Resultado.erro(e.getMessage());
+            System.out.println("erro no buscar coordenador evento");
+            return null;
         }
     }
 

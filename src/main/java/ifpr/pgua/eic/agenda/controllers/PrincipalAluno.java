@@ -41,6 +41,11 @@ public class PrincipalAluno implements Initializable{
         App.pushScreen("PRINCIPAL");
     }
 
+    @FXML
+    void visualizar(ActionEvent event) {
+        App.pushScreen("VISUALIZAANOTACAO");
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         nomeAluno.setText(repositorio.getNomeLogado(logado));

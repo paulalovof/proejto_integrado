@@ -30,6 +30,10 @@ public class PrincipalCoordenador implements Initializable{
         App.pushScreen("CADASTRAEVENTO");
     }
 
+    @FXML
+    void visualizar(ActionEvent event){
+        App.pushScreen("VISUALIZAEVENTO");
+    }
     
     @FXML
     void sair(ActionEvent event) {

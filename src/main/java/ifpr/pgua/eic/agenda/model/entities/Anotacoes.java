@@ -60,4 +60,8 @@ public class Anotacoes {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
+    public String toString(){
+        return "Data de Prazo: "+ data+" \n"+ nome + "("+ descricao+ ")";
+    }
 }

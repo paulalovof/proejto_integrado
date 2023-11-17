@@ -30,7 +30,11 @@ public class PrincipalProfessor implements Initializable{
         App.pushScreen("CADASTRAATIVIDADE");
     }
 
-    
+    @FXML
+    void visualizar(ActionEvent event){
+        App.pushScreen("VISUALIZAATIVIDADE");
+    }
+
     @FXML
     void sair(ActionEvent event) {
         logado.logout();
