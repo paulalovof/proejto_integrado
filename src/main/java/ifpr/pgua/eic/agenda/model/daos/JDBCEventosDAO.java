@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.agenda.model.entities.Atividades;
 import ifpr.pgua.eic.agenda.model.entities.Eventos;
 import ifpr.pgua.eic.agenda.utils.DBUtils;
 
@@ -58,6 +59,7 @@ public class JDBCEventosDAO implements EventosDAO{
             PreparedStatement pstm = null;
             if(id != 0){
                 pstm = con.prepareStatement("SELECT * FROM tb_eventos where idCoordenador = ? ORDER BY data ASC");
+                pstm.setInt(1, id);
             }else{
                 pstm = con.prepareStatement("SELECT * FROM tb_eventos ORDER BY data ASC");
             }
@@ -146,6 +148,59 @@ public class JDBCEventosDAO implements EventosDAO{
             return Resultado.erro("Erro não identificado!");
 
         }catch(SQLException e){
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarSemana() {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_eventos where WEEK(data) = WEEK(now())");
+
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Eventos> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idEvento = rs.getInt("idEvento");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+
+                //Anotacoes anotacao = new Anotacoes(idAtividade, null, nome, descricao, data);
+                Eventos evento = new Eventos(idEvento, null, nome, descricao, data);
+                lista.add(evento);
+
+            }
+
+            return Resultado.sucesso("Lista de eventos filtrada por semana", lista);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarMes() {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_eventos where MONTH(data) = MONTH(now())");
+
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Eventos> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idEvento = rs.getInt("idEvento");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+
+                //Anotacoes anotacao = new Anotacoes(idAtividade, null, nome, descricao, data);
+                Eventos evento = new Eventos(idEvento, null, nome, descricao, data);
+                lista.add(evento);
+            }
+
+            return Resultado.sucesso("Lista de eventos filtrada por mes", lista);
+        } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
         }
     }

@@ -82,7 +82,7 @@ public class App extends BaseAppNavigator {
     @Override
     public void registrarTelas() {
         registraTela("PRINCIPAL", new ScreenRegistryFXML(App.class, "principal.fxml", o->new Principal(servicoLoginDAO, servicoLogin, alunoDAO, coordenadorDAO, professorDAO)));
-        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno(servicoLogin, repositorioAluno)));
+        registraTela("PRINCIPALALUNO", new ScreenRegistryFXML(App.class, "principal_aluno.fxml", o->new PrincipalAluno(servicoLogin, repositorioAluno, repositorioAtividades)));
         registraTela("PRINCIPALCOORDENADOR", new ScreenRegistryFXML(App.class, "principal_coordenador.fxml", o->new PrincipalCoordenador(servicoLogin, repositorioCoordenador)));
         registraTela("PRINCIPALPROFESSOR", new ScreenRegistryFXML(App.class, "principal_professor.fxml", o->new PrincipalProfessor(servicoLogin, repositorioProfessor)));
         registraTela("CADASTRAANOTACAO", new ScreenRegistryFXML(App.class, "cadastrar_anotacao.fxml", o-> new CadastrarAnotacao(repositorioAnotacoes, repositorioAluno, servicoLogin)));

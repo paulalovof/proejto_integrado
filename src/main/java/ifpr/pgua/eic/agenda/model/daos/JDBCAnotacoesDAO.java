@@ -71,7 +71,6 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
 
                 Anotacoes anotacao = new Anotacoes(idAnotacao, null, nome, descricao, data);
                 lista.add(anotacao);
-
             }
 
             return Resultado.sucesso("Lista de anotacoes", lista);
@@ -150,6 +149,62 @@ public class JDBCAnotacoesDAO implements AnotacoesDAO {
             return Resultado.erro("Erro não identificado!");
 
         }catch(SQLException e){
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarSemana(int id) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_anotacoes where idAluno = ? and WEEK(data) = WEEK(now())");
+
+            
+            pstm.setInt(1,id);
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Anotacoes> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idAnotacao = rs.getInt("idAnotacao");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+
+                Anotacoes anotacao = new Anotacoes(idAnotacao, null, nome, descricao, data);
+                lista.add(anotacao);
+
+            }
+
+            return Resultado.sucesso("Lista de anotacoes filtrada por semana", lista);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarMes(int id) {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_anotacoes where idAluno = ? and MONTH(data) = MONTH(now())");
+
+            
+            pstm.setInt(1,id);
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Anotacoes> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idAnotacao = rs.getInt("idAnotacao");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+
+                Anotacoes anotacao = new Anotacoes(idAnotacao, null, nome, descricao, data);
+                lista.add(anotacao);
+
+            }
+
+            return Resultado.sucesso("Lista de anotacoes filtrada por mes", lista);
+        } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
         }
     }

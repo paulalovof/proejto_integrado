@@ -38,7 +38,30 @@ public class RepositorioAnotacoes {
 
     public Resultado listarAnotacoes(int id){
         Resultado resultado = dao.listar(id);
+        if(resultado.foiSucesso()){
+            //iremos finalizar de montar os objetos
+            List<Anotacoes> lista = (List<Anotacoes>)resultado.comoSucesso().getObj();
+            for(Anotacoes anotacao:lista){
+                Aluno aluno = alunoDAO.buscarAlunoAnotacao(anotacao.getIdAnotacao());
+                anotacao.setAluno(aluno);
+            }
+        }
     
+        return resultado;
+        
+    }
+
+    public Resultado atualizarAnotacao(int id, String nome, String descricao, LocalDate data, Aluno aluno) {
+        Anotacoes anotacao = new Anotacoes(aluno, nome, descricao, data);
+        return dao.atualizar(id, anotacao);
+    }
+
+    public Resultado deletar(int id){
+        return dao.deletar(id);
+    }
+    
+    public Resultado filtrarSemana(int id){
+        Resultado resultado = dao.listarSemana(id);
         if(resultado.foiSucesso()){
                 //iremos finalizar de montar os objetos
             List<Anotacoes> lista = (List<Anotacoes>)resultado.comoSucesso().getObj();
@@ -48,9 +71,22 @@ public class RepositorioAnotacoes {
                 anotacao.setAluno(aluno);
             }
         }
-    
+
         return resultado;
-        
     }
-    
+
+    public Resultado filtrarMes(int id){
+        Resultado resultado = dao.listarMes(id);
+        if(resultado.foiSucesso()){
+                //iremos finalizar de montar os objetos
+            List<Anotacoes> lista = (List<Anotacoes>)resultado.comoSucesso().getObj();
+            for(Anotacoes anotacao:lista){
+                Aluno aluno = alunoDAO.buscarAlunoAnotacao(anotacao.getIdAnotacao());
+
+                anotacao.setAluno(aluno);
+            }
+        }
+
+        return resultado;
+    }
 }

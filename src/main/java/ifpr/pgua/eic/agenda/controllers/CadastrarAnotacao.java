@@ -8,6 +8,7 @@ import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
 import ifpr.pgua.eic.agenda.model.entities.Aluno;
+import ifpr.pgua.eic.agenda.model.entities.Anotacoes;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAluno;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAnotacoes;
@@ -30,17 +31,29 @@ public class CadastrarAnotacao implements Initializable{
     @FXML
     private TextField tfNome;
 
+    @FXML 
+    private Label lbAnotacao;
+
     @FXML
     private Label nomeAluno;
 
     private RepositorioAnotacoes repositorio;
     private RepositorioAluno repositorioAluno;
     private ServicoLogin logado;
+
+    private Anotacoes antigo;
     
     public CadastrarAnotacao(RepositorioAnotacoes repositorio, RepositorioAluno repositorioAluno, ServicoLogin logado) {
         this.repositorio = repositorio;
         this.repositorioAluno = repositorioAluno;
         this.logado = logado;
+    }
+
+    public CadastrarAnotacao(RepositorioAnotacoes repositorio, RepositorioAluno repositorioAluno, ServicoLogin logado, Anotacoes anotacao) {
+        this.repositorio = repositorio;
+        this.repositorioAluno = repositorioAluno;
+        this.logado = logado;
+        this.antigo = anotacao;
     }
 
     @FXML
@@ -51,8 +64,14 @@ public class CadastrarAnotacao implements Initializable{
         
         Aluno aluno = repositorioAluno.getLogado(logado);
 
-        Resultado resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker, aluno);
+        Resultado resultado;
         
+        if(antigo == null){
+            resultado = repositorio.cadastrarAnotacao(nome, descricao, dataPicker, aluno);
+        }else{
+            resultado = repositorio.atualizarAnotacao(antigo.getIdAnotacao(), nome, descricao, dataPicker, aluno);
+        }
+
         Alert alert;
 
         if(resultado.foiErro()){
@@ -67,6 +86,9 @@ public class CadastrarAnotacao implements Initializable{
     @FXML
     void cancelar(ActionEvent event) {
         App.popScreen();
+        if(antigo != null){
+            App.pushScreen("VISUALIZAANOTACAO");
+        }
     }
 
     @FXML
@@ -77,5 +99,12 @@ public class CadastrarAnotacao implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         nomeAluno.setText(repositorioAluno.getNomeLogado(logado));
+
+        if(antigo != null){
+            tfNome.setText(antigo.getNome());
+            tfDescricao.setText(antigo.getDescricao());
+            dtPrazo.setValue(antigo.getData());
+            lbAnotacao.setText("Editar Anotação");
+        }
     }
 }

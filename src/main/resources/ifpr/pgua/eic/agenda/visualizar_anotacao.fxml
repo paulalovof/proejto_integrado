@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -57,8 +56,10 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="338.0" prefWidth="157.0" spacing="15.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Esse Mês" />
-                        <RadioButton mnemonicParsing="false" text="Essa Semana" />
+                        <Label text="Filtrar" />
+                        <Button mnemonicParsing="false" onAction="#filtroSemana" text="Essa semana" />
+                        <Button mnemonicParsing="false" onAction="#filtroMes" text="Esse mês" />
+                        <Separator prefWidth="200.0" />
                         <Button mnemonicParsing="false" onAction="#editar" text="Editar" />
                         <Button mnemonicParsing="false" onAction="#excluir" text="Deletar" />
                         <Button mnemonicParsing="false" onAction="#voltar" text="Voltar" />

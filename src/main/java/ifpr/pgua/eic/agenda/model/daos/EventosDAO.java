@@ -7,6 +7,8 @@ import ifpr.pgua.eic.agenda.model.entities.Eventos;
 public interface EventosDAO {
     Resultado criar(Eventos evento);
     Resultado listar(int id);
+    Resultado listarSemana();
+    Resultado listarMes();
     Resultado getById(int id);
     Resultado atualizar(int id, Eventos novo);
     Resultado deletar(int id);

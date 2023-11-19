@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.App;
+import ifpr.pgua.eic.agenda.model.entities.Atividades;
 import ifpr.pgua.eic.agenda.model.entities.Professor;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioAtividades;
@@ -37,14 +38,26 @@ public class CadastrarAtividade implements Initializable{
     @FXML
     private Label lbNome;
 
+    @FXML
+    private Label lbAtividade;
+
     private RepositorioAtividades repositorio;
     private RepositorioProfessor repositorioProfessor;
     private ServicoLogin logado;
+
+    private Atividades antigo;
     
     public CadastrarAtividade(RepositorioAtividades repositorio, RepositorioProfessor repositorioProfessor, ServicoLogin logado) {
         this.repositorio = repositorio;
         this.repositorioProfessor = repositorioProfessor;
         this.logado = logado;
+    }
+
+    public CadastrarAtividade(RepositorioAtividades repositorio, RepositorioProfessor repositorioProfessor, ServicoLogin logado, Atividades atividade) {
+        this.repositorio = repositorio;
+        this.repositorioProfessor = repositorioProfessor;
+        this.logado = logado;
+        this.antigo = atividade;
     }
 
     @FXML
@@ -56,7 +69,13 @@ public class CadastrarAtividade implements Initializable{
         
         Professor professor = repositorioProfessor.getLogado(logado);
 
-        Resultado resultado = repositorio.cadastrarAtividade(nome, descricao, dataPicker, avaliada, professor);
+        Resultado resultado;
+
+        if(antigo == null){
+            resultado = repositorio.cadastrarAtividade(nome, descricao, dataPicker, avaliada, professor);
+        }else{
+            resultado = repositorio.atualizarAtividade(antigo.getIdAtividade(), nome, descricao, dataPicker, avaliada, professor);
+        }
         
         Alert alert;
 
@@ -72,6 +91,9 @@ public class CadastrarAtividade implements Initializable{
     @FXML
     void cancelar(ActionEvent event) {
         App.popScreen();
+        if(antigo != null){
+            App.pushScreen("VISUALIZAATIVIDADE");
+        }
     }
 
     @FXML
@@ -82,5 +104,12 @@ public class CadastrarAtividade implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         lbNome.setText(repositorioProfessor.getNomeLogado(logado));
+        if(antigo != null){
+            tfNome.setText(antigo.getNome());
+            tfDescricao.setText(antigo.getDescricao());
+            cbAvaliada.setSelected(antigo.isAtividadeAvaliada());
+            dtPrazo.setValue(antigo.getData());
+            lbAtividade.setText("Editar Atividade");
+        }
     }
 }

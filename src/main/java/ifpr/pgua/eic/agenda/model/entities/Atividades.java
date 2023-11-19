@@ -72,9 +72,14 @@ public class Atividades {
 
     public String toString(){
         if(atividadeAvaliada){
-            return "Data de Prazo: "+ data+" \n"+ nome + "AVALIADA("+ descricao+ ")";
+            return "Data de Prazo: "+ data+" \n"+ nome + " AVALIADA("+ descricao+ ")";
         }else{
-            return "Data de Prazo: "+ data+" \n"+ nome + "("+ descricao+ ")";
+            if(descricao != null){
+                return "Data de Prazo: "+ data+" \n"+ nome + "("+ descricao+ ")";
+            }else{
+                return nome;
+            }
+            
         }
     }
 }

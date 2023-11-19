@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.agenda.model.entities.Anotacoes;
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
 import ifpr.pgua.eic.agenda.utils.DBUtils;
 
@@ -59,9 +60,38 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
             PreparedStatement pstm = null;
             if(id != 0){
                 pstm = con.prepareStatement("SELECT * FROM tb_atividades where idProfessor = ? ORDER BY data ASC");
+                pstm.setInt(1,id);
             }else{
                 pstm = con.prepareStatement("SELECT * FROM tb_atividades ORDER BY data ASC");
             }
+            
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Atividades> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idAtividade = rs.getInt("idAtividade");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+                Boolean avaliada = rs.getBoolean("avaliada");
+
+                Atividades atividade = new Atividades(idAtividade, null, nome, descricao, data, avaliada);
+                lista.add(atividade);
+
+            }
+            return Resultado.sucesso("Lista de atividades", lista);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    public Resultado listarProximas() {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = null;
+            
+            pstm = con.prepareStatement("SELECT * FROM tb_atividades where data between CURDATE() and CURDATE() + INTERVAL 7 DAY");
+            
             
             ResultSet rs = pstm.executeQuery();
 
@@ -120,8 +150,8 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
             pstm.setString(1, novo.getNome());
             pstm.setString(2, novo.getDescricao());
             pstm.setDate(3, Date.valueOf(novo.getData()));
-            pstm.setInt(4, novo.getProfessor().getIdProfessor());
-            pstm.setBoolean(5, novo.isAtividadeAvaliada());
+            pstm.setBoolean(4, novo.isAtividadeAvaliada());
+            pstm.setInt(5, novo.getProfessor().getIdProfessor());
             pstm.setInt(6, id);
 
             int ret = pstm.executeUpdate();
@@ -150,6 +180,62 @@ public class JDBCAtividadesDAO implements AtividadesDAO{
             return Resultado.erro("Erro não identificado!");
 
         }catch(SQLException e){
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarSemana() {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_atividades where WEEK(data) = WEEK(now())");
+
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Atividades> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idAtividade = rs.getInt("idAtividade");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+                Boolean avaliada = rs.getBoolean("avaliada");
+
+                //Anotacoes anotacao = new Anotacoes(idAtividade, null, nome, descricao, data);
+                Atividades atividade = new Atividades(idAtividade, null, nome, descricao, data, avaliada);
+                lista.add(atividade);
+
+            }
+
+            return Resultado.sucesso("Lista de atividades filtrada por semana", lista);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
+    @Override
+    public Resultado listarMes() {
+        try (Connection con = fabrica.getConnection()) {
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM tb_atividades where MONTH(data) = MONTH(now())");
+
+            ResultSet rs = pstm.executeQuery();
+
+            ArrayList<Atividades> lista = new ArrayList<>();
+
+            while(rs.next()){
+                int idAtividade = rs.getInt("idAtividade");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                LocalDate data = rs.getDate("data").toLocalDate();
+                Boolean avaliada = rs.getBoolean("avaliada");
+
+                //Anotacoes anotacao = new Anotacoes(idAtividade, null, nome, descricao, data);
+                Atividades atividade = new Atividades(idAtividade, null, nome, descricao, data, avaliada);
+                lista.add(atividade);
+
+            }
+
+            return Resultado.sucesso("Lista de atividades filtrada por mes", lista);
+        } catch (SQLException e) {
             return Resultado.erro(e.getMessage());
         }
     }

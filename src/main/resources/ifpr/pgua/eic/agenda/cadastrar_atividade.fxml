@@ -40,7 +40,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="348.0" prefWidth="459.0">
                      <children>
-                        <Label text="Nova Atividade" />
+                        <Label text="Nova Atividade" fx:id="lbAtividade"/>
                         <HBox alignment="CENTER" prefHeight="57.0" prefWidth="459.0">
                            <children>
                               <Label text="Digite um Titulo: " />
