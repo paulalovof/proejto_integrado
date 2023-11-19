@@ -4,15 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import ifpr.pgua.eic.agenda.App;
-import ifpr.pgua.eic.agenda.model.entities.Atividades;
 import ifpr.pgua.eic.agenda.model.entities.Eventos;
 import ifpr.pgua.eic.agenda.model.entities.ServicoLogin;
-import ifpr.pgua.eic.agenda.model.repositories.RepositorioAtividades;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioCoordenador;
 import ifpr.pgua.eic.agenda.model.repositories.RepositorioEventos;
-import ifpr.pgua.eic.agenda.model.repositories.RepositorioProfessor;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

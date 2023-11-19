@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import com.github.hugoperlin.results.Resultado;
 
 import ifpr.pgua.eic.agenda.model.entities.Atividades;
-import ifpr.pgua.eic.agenda.model.entities.Eventos;
 import ifpr.pgua.eic.agenda.utils.DBUtils;
 
 public class JDBCAtividadesDAO implements AtividadesDAO{
